@@ -17,3 +17,12 @@
   flex-direction: column;
   align-items: center;
 }
+
+h1 {
+  margin-bottom: 4px;
+}
+
+h2 {
+  color: #EAB32C;
+  margin-top: 4px;
+}
