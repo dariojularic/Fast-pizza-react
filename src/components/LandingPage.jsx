@@ -3,6 +3,7 @@ import Input from "./Input";
 // import { useDispatch } from "react-redux";
 import Button from "./Button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   const [inputValue, setInputValue] = useState("");
@@ -30,7 +31,11 @@ const LandingPage = () => {
             }}
           />
 
-          {inputValue !== "" && <Button type="button" value="Submit name"  />}
+          {inputValue !== "" && (
+            <Link to="/menu">
+              <Button type="button" value="Submit name" />
+            </Link>
+          )}
         </form>
       </div>
     </div>
