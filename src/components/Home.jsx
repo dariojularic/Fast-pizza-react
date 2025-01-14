@@ -35,7 +35,7 @@ const Home = () => {
 
           {inputValue !== "" && (
             <Link to="/menu">
-              <Button type="submit" value="Submit name" handler={() => dispatch(addUser(inputValue))}  />
+              <Button type="submit" value="Submit name" handler={() => dispatch(addUser(inputValue))} />
             </Link>
           )}
         </form>
