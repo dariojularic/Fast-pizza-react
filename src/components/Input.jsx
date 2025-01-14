@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // useState
 
 const Input = ({ type, placeholder, name, handler }) => {

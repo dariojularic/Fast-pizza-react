@@ -1,13 +1,15 @@
-import "./LandingPage.css";
+import "./Home.css";
 import Input from "./Input";
-// import { useDispatch } from "react-redux";
 import Button from "./Button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { addUser } from "../userSlice";
+import { useDispatch } from "react-redux";
 
-const LandingPage = () => {
+const Home = () => {
   const [inputValue, setInputValue] = useState("");
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch()
+
   return (
     <div className="landing-page">
       <div className="headers">
@@ -33,7 +35,7 @@ const LandingPage = () => {
 
           {inputValue !== "" && (
             <Link to="/menu">
-              <Button type="button" value="Submit name" />
+              <Button type="submit" value="Submit name" handler={() => dispatch(addUser(inputValue))}  />
             </Link>
           )}
         </form>
@@ -42,4 +44,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default Home;
