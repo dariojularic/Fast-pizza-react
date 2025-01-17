@@ -1,0 +1,9 @@
+.username-input {
+  border: none;
+  height: 56px;
+  padding-left: 24px;
+  border-radius: 24px;
+  width: 360px;
+  font-size: 20px;
+  margin-bottom: 100px;
+}

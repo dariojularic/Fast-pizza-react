@@ -33,14 +33,25 @@ h3 {
   margin-top: 4px;
 }
 
-.username-input {
+input {
   border: none;
-  height: 56px;
-  padding-left: 24px;
-  border-radius: 24px;
-  width: 360px;
+  border-radius: 99px;
   font-size: 20px;
+  padding-left: 24px;
+}
+
+.username-input {
+  height: 56px;
+  width: 360px;
   margin-bottom: 100px;
+}
+
+.order-input {
+  height: 40px;
+  width: 360px;
+  background-color: #FEF9C3;
+  align-self: center;
+  width: 280px;
 }
 
 .add-user-form {

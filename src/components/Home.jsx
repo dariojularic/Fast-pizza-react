@@ -1,17 +1,36 @@
 import "./Home.css";
 import Input from "./Input";
 import Button from "./Button";
+import Navbar from "./Navbar";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { addUser } from "../userSlice";
 import { useDispatch } from "react-redux";
 
+// folder layouts
+// --navigation
+// footer
+
+// folder components
+// button.jsx
+// input.jsx
+// generalno gradivne komponente neovisne o jednom dijelu stranice specificno
+
+// pages
+// --home
+// ----components
+// ----menu.jsx
+// --hooks
+// --useBlaBla.jsx
+// --index.jsx
+
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <div className="landing-page">
+      {/* <Navbar /> */}
       <div className="headers">
         <h1>
           The best pizza <br></br>
@@ -35,11 +54,16 @@ const Home = () => {
 
           {inputValue !== "" && (
             <Link to="/menu">
-              <Button type="submit" value="Submit name" handler={() => dispatch(addUser(inputValue))} />
+              <Button
+                type="submit"
+                value="Submit name"
+                handler={() => dispatch(addUser(inputValue))}
+              />
             </Link>
           )}
         </form>
       </div>
+      {/* <Outlet />  */}
     </div>
   );
 };
