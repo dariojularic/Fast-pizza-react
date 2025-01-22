@@ -1,15 +1,16 @@
 import "./Home.css";
-import Input from "./Input";
-import Button from "./Button";
-import Navbar from "./Navbar";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+// import Button from "@components/Button";
+import Navbar from "../../layouts/navbar/Navbar";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { addUser } from "../userSlice";
+import { addUser } from "../../userSlice";
 import { useDispatch } from "react-redux";
 
 // folder layouts
 // --navigation
-// footer
+// --footer
 
 // folder components
 // button.jsx
@@ -27,6 +28,10 @@ import { useDispatch } from "react-redux";
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
+
+  function fetchData() {
+    
+  }
 
   return (
     <div className="landing-page">
