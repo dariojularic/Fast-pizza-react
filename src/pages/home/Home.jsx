@@ -29,10 +29,6 @@ const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
 
-  function fetchData() {
-    
-  }
-
   return (
     <div className="landing-page">
       {/* <Navbar /> */}
@@ -62,7 +58,10 @@ const Home = () => {
               <Button
                 type="submit"
                 value="Submit name"
-                handler={() => dispatch(addUser(inputValue))}
+                handler={() => {
+                  dispatch(addUser(inputValue));
+                  // fetchData();
+                }}
               />
             </Link>
           )}
