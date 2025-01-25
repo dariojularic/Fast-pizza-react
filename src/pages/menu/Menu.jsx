@@ -1,3 +1,5 @@
+import PizzaCard from "../../layouts/pizzaCard/PizzaCard";
+
 const Menu = () => {
   const url = "https://react-fast-pizza-api.onrender.com/api/menu";
 
@@ -13,12 +15,25 @@ const Menu = () => {
     }
   }
 
+  // fetchData();
+
   // const pizzaMenu = fetchData();
 
-  fetchData()
-    .then(data => {
-      
-    })
+  // fetchData().then((data) => {
+  //   console.log(data.data);
+  //   data.data.map((pizza) => {
+  //     return (
+  //       <PizzaCard
+  //         key={pizza.id}
+  //         name={pizza.name}
+  //         ingredients={pizza.ingredients}
+  //         soldOut={pizza.soldOut}
+  //         image={pizza.imageUrl}
+  //         price={pizza.unitPrice}
+  //       />
+  //     );
+  //   });
+  // });
 
   // console.log(pizzaMenu)
 
@@ -26,7 +41,22 @@ const Menu = () => {
     <>
       <h1>Menu Page</h1>
       <ul>
-        {/* {pizzaMenu} */}
+        {() => {
+          fetchData().then((data) => {
+            data.data.map((pizza) => {
+              return (
+                <PizzaCard
+                  key={pizza.id}
+                  name={pizza.name}
+                  ingredients={pizza.ingredients}
+                  soldOut={pizza.soldOut}
+                  image={pizza.imageUrl}
+                  price={pizza.unitPrice}
+                />
+              );
+            });
+          });
+        }}
       </ul>
     </>
   );
