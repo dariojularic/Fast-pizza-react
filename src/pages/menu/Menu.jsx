@@ -63,7 +63,6 @@ const Menu = () => {
       <h1>Menu Page</h1>
       <ul>
         {pizzaMenu.map((pizza) => {
-          console.log(pizzaMenu);
           return (
             <PizzaCard
               key={pizza.id}
