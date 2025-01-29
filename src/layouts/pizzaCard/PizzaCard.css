@@ -1,8 +1,25 @@
 li {
   display: flex;
   justify-content: space-between;
+  height: 160px;
+  margin-bottom: 24px;
 }
 
 .pizza-details {
   display: flex;
+}
+
+.pizza-info {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pizza-name {
+  margin: 4px 0;
+}
+
+.pizza-ingredients {
+  margin: 0;
 }

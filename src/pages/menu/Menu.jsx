@@ -1,4 +1,5 @@
 import PizzaCard from "../../layouts/pizzaCard/PizzaCard";
+import "./Menu.css";
 import { useState, useEffect } from "react";
 
 const Menu = () => {
