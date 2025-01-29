@@ -5,15 +5,13 @@ const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
   return (
     <li>
       <div className="pizza-details">
-        <img src={image} alt="" />
+        <img className="pizza-image" src={image} alt="" />
         <div className="pizza-info">
           <div className="name-ingredients">
             <h4 className="pizza-name">{name}</h4>
-            <p className="pizza-ingredients">
-              {ingredients.join(", ")}
-            </p>
+            <p className="pizza-ingredients">{ingredients.join(", ")}</p>
           </div>
-          <p className="pizza-price">€{price}</p>
+          <p className="pizza-price">€{price}.00</p>
         </div>
       </div>
       <Button />
