@@ -14,7 +14,9 @@ const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
           <p className="pizza-price">€{price}.00</p>
         </div>
       </div>
-      <Button />
+      <div className="button-container">
+        <Button value="ADD TO CART" type="button" />
+      </div>
     </li>
   );
 };
