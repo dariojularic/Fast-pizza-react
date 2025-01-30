@@ -11,7 +11,9 @@ const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
             <h4 className="pizza-name">{name}</h4>
             <p className="pizza-ingredients">{ingredients.join(", ")}</p>
           </div>
-          <p className="pizza-price">€{price}.00</p>
+          <p className="pizza-price">
+            {soldOut ? "SOLD OUT" : "€" + price + ".00"}
+          </p>
         </div>
       </div>
       <div className="button-container">
