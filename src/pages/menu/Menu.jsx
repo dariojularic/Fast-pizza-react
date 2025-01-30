@@ -1,6 +1,7 @@
 import PizzaCard from "../../layouts/pizzaCard/PizzaCard";
 import "./Menu.css";
 import { useState, useEffect } from "react";
+import Loader from "../../layouts/loader/Loader";
 
 const Menu = () => {
   const [pizzaMenu, setPizzaMenu] = useState([]);
@@ -59,9 +60,10 @@ const Menu = () => {
 
   // console.log(pizzaMenu)
 
+  if (pizzaMenu.length === 0) return <Loader />;
+
   return (
     <>
-      <h1>Menu Page</h1>
       <ul>
         {pizzaMenu.map((pizza) => {
           return (
