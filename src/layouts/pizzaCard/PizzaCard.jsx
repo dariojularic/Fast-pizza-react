@@ -2,10 +2,13 @@ import Button from "../../components/Button";
 import "./PizzaCard.css";
 
 const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
+
+  const style = soldOut ? "pizza-image gray" : "pizza-image"
+
   return (
     <li>
       <div className="pizza-details">
-        <img className="pizza-image" src={image} alt="" />
+        <img className={style} src={image} alt="" />
         <div className="pizza-info">
           <div className="name-ingredients">
             <h4 className="pizza-name">{name}</h4>
@@ -16,9 +19,11 @@ const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
           </p>
         </div>
       </div>
-      <div className="button-container">
-        <Button value="ADD TO CART" type="button" />
-      </div>
+      {soldOut ? null : (
+        <div className="button-container">
+          <Button value="ADD TO CART" type="button" />
+        </div>
+      )}
     </li>
   );
 };

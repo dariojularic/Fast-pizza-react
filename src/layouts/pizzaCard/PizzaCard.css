@@ -18,12 +18,14 @@ li {
 
 .pizza-name {
   margin: 4px 0;
+  font-weight: 500;
 }
 
 .pizza-ingredients {
   margin: 0;
   font-style: italic;
   font-size: 16px;
+  font-weight: 300;
 }
 
 .pizza-image {
@@ -34,4 +36,8 @@ li {
 .button-container {
   display: flex;
   align-items: end;
+}
+
+.gray {
+  filter: grayscale(100%);
 }
