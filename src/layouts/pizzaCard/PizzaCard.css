@@ -21,12 +21,12 @@ li {
   font-weight: 500;
 }
 
-/* .pizza-ingredients {
+.pizza-ingredients {
   margin: 0;
   font-style: italic;
   font-size: 16px;
   font-weight: 300;
-} */
+}
 
 .pizza-image {
   height: 120px;
