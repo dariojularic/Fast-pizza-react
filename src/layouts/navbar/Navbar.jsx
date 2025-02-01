@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav>
       <h2>Fast Pizza Co</h2>
       <Input type="text" placeholder="Search order #" name="order" />
-      {username === "" ? null : <h3>{username}</h3>}
+      {username === "" ? null : <h3>{username.toUpperCase()}</h3>}
     </nav>
   );
 };
