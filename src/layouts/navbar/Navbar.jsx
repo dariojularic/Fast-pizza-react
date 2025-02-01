@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { username } = useSelector((store) => store.user);
-  // console.log(username)
   return (
     <nav>
       <h2>Fast Pizza Co</h2>

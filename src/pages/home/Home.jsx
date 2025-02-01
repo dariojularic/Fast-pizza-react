@@ -56,6 +56,7 @@ const Home = () => {
           {inputValue !== "" && (
             <Link to="/menu">
               <Button
+                style="btn"
                 type="submit"
                 value="Submit name"
                 handler={() => {

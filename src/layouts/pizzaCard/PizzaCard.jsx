@@ -2,8 +2,7 @@ import Button from "../../components/Button";
 import "./PizzaCard.css";
 
 const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
-
-  const style = soldOut ? "pizza-image gray" : "pizza-image"
+  const style = soldOut ? "pizza-image gray" : "pizza-image";
 
   return (
     <li>
@@ -21,7 +20,7 @@ const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
       </div>
       {soldOut ? null : (
         <div className="button-container">
-          <Button value="ADD TO CART" type="button" />
+          <Button style="btn add-btn" value="ADD TO CART" type="button" />
         </div>
       )}
     </li>
