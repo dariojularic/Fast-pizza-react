@@ -1,8 +1,6 @@
 import "./Home.css";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-// import Button from "@components/Button";
-import Navbar from "../../layouts/navbar/Navbar";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { addUser } from "../../userSlice";
@@ -31,7 +29,6 @@ const Home = () => {
 
   return (
     <div className="landing-page">
-      {/* <Navbar /> */}
       <div className="headers">
         <h1>
           The best pizza <br></br>
@@ -61,14 +58,12 @@ const Home = () => {
                 value="Submit name"
                 handler={() => {
                   dispatch(addUser(inputValue));
-                  // fetchData();
                 }}
               />
             </Link>
           )}
         </form>
       </div>
-      {/* <Outlet />  */}
     </div>
   );
 };
