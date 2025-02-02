@@ -3,6 +3,8 @@ import "./Menu.css";
 import { useState, useEffect } from "react";
 import Loader from "../../layouts/loader/Loader";
 
+// kako radi alias?
+
 const Menu = () => {
   const [pizzaMenu, setPizzaMenu] = useState([]);
   const url = "https://react-fast-pizza-api.onrender.com/api/menu";
@@ -24,22 +26,20 @@ const Menu = () => {
   if (pizzaMenu.length === 0) return <Loader />;
 
   return (
-    <>
-      <ul>
-        {pizzaMenu.map((pizza) => {
-          return (
-            <PizzaCard
-              key={pizza.id}
-              name={pizza.name}
-              ingredients={pizza.ingredients}
-              soldOut={pizza.soldOut}
-              image={pizza.imageUrl}
-              price={pizza.unitPrice}
-            />
-          );
-        })}
-      </ul>
-    </>
+    <ul>
+      {pizzaMenu.map((pizza) => {
+        return (
+          <PizzaCard
+            key={pizza.id}
+            name={pizza.name}
+            ingredients={pizza.ingredients}
+            soldOut={pizza.soldOut}
+            image={pizza.imageUrl}
+            price={pizza.unitPrice}
+          />
+        );
+      })}
+    </ul>
   );
 };
 

@@ -1,5 +1,6 @@
 import "./Home.css";
-import Input from "../../components/Input";
+// import Input from "../../components/Input";
+import Input from "#components/Input.jsx";
 import Button from "../../components/Button";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
