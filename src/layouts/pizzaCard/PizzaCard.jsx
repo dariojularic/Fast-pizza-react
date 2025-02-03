@@ -1,8 +1,11 @@
 import Button from "../../components/Button";
 import "./PizzaCard.css";
+// import { useDispatch } from "react-redux";
+// import { addToCart } from "../../cartSlice";
 
-const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
+const PizzaCard = ({ name, ingredients, soldOut, price, image, handler }) => {
   const style = soldOut ? "pizza-image gray" : "pizza-image";
+  // const dispatch = useDispatch();
 
   return (
     <li>
@@ -18,7 +21,12 @@ const PizzaCard = ({ name, ingredients, soldOut, price, image }) => {
           </p>
           {soldOut ? null : (
             <div className="button-container">
-              <Button style="btn add-btn" value="ADD TO CART" type="button" />
+              <Button
+                style="btn add-btn"
+                value="ADD TO CART"
+                type="button"
+                handler={() => handler()}
+              />
             </div>
           )}
         </div>

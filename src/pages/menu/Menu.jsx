@@ -2,10 +2,13 @@ import PizzaCard from "../../layouts/pizzaCard/PizzaCard";
 import "./Menu.css";
 import { useState, useEffect } from "react";
 import Loader from "../../layouts/loader/Loader";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../cartSlice";
 
 const Menu = () => {
   const [pizzaMenu, setPizzaMenu] = useState([]);
   const url = "https://react-fast-pizza-api.onrender.com/api/menu";
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +37,7 @@ const Menu = () => {
             soldOut={pizza.soldOut}
             image={pizza.imageUrl}
             price={pizza.unitPrice}
+            handler={() => dispatch(addToCart(pizza))}
           />
         );
       })}
