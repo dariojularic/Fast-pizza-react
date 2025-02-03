@@ -29,8 +29,9 @@ li {
   width: 120px;
 }
 
-.button-container {
+.buttons-container {
   display: flex;
+  justify-content: space-between;
   align-items: end;
 }
 
@@ -46,4 +47,10 @@ li {
 
 .pizza-price {
   margin: 16px 0;
+}
+
+.change-amount-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }

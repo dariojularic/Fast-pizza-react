@@ -9,11 +9,11 @@ const PizzaCard = ({
   soldOut,
   price,
   image,
+  amount,
   handler,
 }) => {
   const style = soldOut ? "pizza-image gray" : "pizza-image";
   const { cart } = useSelector((store) => store.cart);
-  console.log(cart);
 
   return (
     <li>
@@ -24,7 +24,34 @@ const PizzaCard = ({
           <p className="pizza-ingredients">{ingredients.join(", ")}</p>
         </div>
 
-        <div className="price-button-container">
+        {console.log(cart.some((pizza) => pizza.id === id))}
+
+        {cart.some((pizza) => pizza.id === id) ? (
+          <div className="buttons-container">
+            <div className="change-amount-container">
+              <Button style="btn change-amount-btn" value="-" type="button" />
+              <p className="amount">{amount}</p>
+              <Button style="btn change-amount-btn" value="+" type="button" />
+              <Button style="btn delete-btn" value="DELETE" type="button" />
+            </div>
+            <p className="pizza-price">{price.toFixed(2)}</p>
+          </div>
+        ) : (
+          <div className="price-button-container">
+            <p className="pizza-price">
+              {soldOut ? "SOLD OUT" : "€" + price.toFixed(2)}
+            </p>
+            {soldOut ? null : (
+              <Button
+                style="btn add-btn"
+                value="ADD TO CART"
+                type="button"
+                handler={() => handler()}
+              />
+            )}
+          </div>
+        )}
+        {/* <div className="price-button-container">
           <p className="pizza-price">
             {soldOut ? "SOLD OUT" : "€" + price.toFixed(2)}
           </p>
@@ -36,7 +63,7 @@ const PizzaCard = ({
               handler={() => handler()}
             />
           )}
-        </div>
+        </div> */}
       </div>
     </li>
   );

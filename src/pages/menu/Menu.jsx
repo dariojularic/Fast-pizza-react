@@ -15,6 +15,10 @@ const Menu = () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
+        data.data.forEach(pizza => {
+          pizza.amount = 0
+        })
+        console.log(data.data)
         setPizzaMenu(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,6 +41,7 @@ const Menu = () => {
             ingredients={pizza.ingredients}
             soldOut={pizza.soldOut}
             image={pizza.imageUrl}
+            amount={pizza.amount}
             price={pizza.unitPrice}
             handler={() => dispatch(addToCart(pizza))}
           />
