@@ -3,8 +3,6 @@ import "./Menu.css";
 import { useState, useEffect } from "react";
 import Loader from "../../layouts/loader/Loader";
 
-// kako radi alias?
-
 const Menu = () => {
   const [pizzaMenu, setPizzaMenu] = useState([]);
   const url = "https://react-fast-pizza-api.onrender.com/api/menu";
