@@ -1,7 +1,7 @@
-import PizzaCard from "../../layouts/pizzaCard/PizzaCard";
+import PizzaCard from "#layouts/pizzaCard/PizzaCard";
 import "./Menu.css";
 import { useState, useEffect } from "react";
-import Loader from "../../layouts/loader/Loader";
+import Loader from "#layouts/loader/Loader";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../cartSlice";
 
@@ -32,6 +32,7 @@ const Menu = () => {
         return (
           <PizzaCard
             key={pizza.id}
+            id={pizza.id}
             name={pizza.name}
             ingredients={pizza.ingredients}
             soldOut={pizza.soldOut}

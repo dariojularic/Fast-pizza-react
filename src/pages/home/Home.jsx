@@ -1,9 +1,8 @@
 import "./Home.css";
-// import Input from "../../components/Input";
 import Input from "#components/Input.jsx";
-import Button from "../../components/Button";
+import Button from "#components/Button";
 import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { addUser } from "../../userSlice";
 import { useDispatch } from "react-redux";
 

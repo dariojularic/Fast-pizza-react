@@ -14,6 +14,8 @@ export default defineConfig({
       "#root": __dirname,
 
       "#components": path.resolve(__dirname, "src/components"),
+      "#layouts": path.resolve(__dirname, "src/layouts"),
+      "#pages": path.resolve(__dirname, "src/pages"),
     },
   },
   // "#components": `${__dirname}/src/components`,

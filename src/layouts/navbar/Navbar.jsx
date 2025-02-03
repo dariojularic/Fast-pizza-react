@@ -1,4 +1,4 @@
-import Input from "../../components/Input";
+import Input from "#components/Input";
 import "./Navbar.css";
 import { useSelector } from "react-redux";
 

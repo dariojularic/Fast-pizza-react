@@ -1,5 +1,4 @@
-// import { useDispatch } from "react-redux";
-// useState
+
 
 const Input = ({ type, placeholder, name, handler }) => {
   const classVariation = name === "username" ? "username-input" : "order-input"

@@ -7,6 +7,14 @@ footer {
   justify-content: space-between;
   align-items: center;
   color: white;
-  padding: 20px;
+  padding: 0 24px;
   box-sizing: border-box;
+}
+
+.cart-info {
+  display: flex;
+}
+
+.total-price {
+  margin-left: 16px;
 }

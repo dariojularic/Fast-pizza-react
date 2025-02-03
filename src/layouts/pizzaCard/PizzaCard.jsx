@@ -1,11 +1,19 @@
-import Button from "../../components/Button";
+import Button from "#components/Button";
 import "./PizzaCard.css";
-// import { useDispatch } from "react-redux";
-// import { addToCart } from "../../cartSlice";
+import { useSelector } from "react-redux";
 
-const PizzaCard = ({ name, ingredients, soldOut, price, image, handler }) => {
+const PizzaCard = ({
+  id,
+  name,
+  ingredients,
+  soldOut,
+  price,
+  image,
+  handler,
+}) => {
   const style = soldOut ? "pizza-image gray" : "pizza-image";
-  // const dispatch = useDispatch();
+  const { cart } = useSelector((store) => store.cart);
+  console.log(cart);
 
   return (
     <li>
@@ -15,19 +23,18 @@ const PizzaCard = ({ name, ingredients, soldOut, price, image, handler }) => {
           <h4 className="pizza-name">{name}</h4>
           <p className="pizza-ingredients">{ingredients.join(", ")}</p>
         </div>
+
         <div className="price-button-container">
           <p className="pizza-price">
-            {soldOut ? "SOLD OUT" : "€" + price + ".00"}
+            {soldOut ? "SOLD OUT" : "€" + price.toFixed(2)}
           </p>
           {soldOut ? null : (
-            <div className="button-container">
-              <Button
-                style="btn add-btn"
-                value="ADD TO CART"
-                type="button"
-                handler={() => handler()}
-              />
-            </div>
+            <Button
+              style="btn add-btn"
+              value="ADD TO CART"
+              type="button"
+              handler={() => handler()}
+            />
           )}
         </div>
       </div>
