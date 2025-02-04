@@ -6,6 +6,7 @@
 
 .container {
   width: 55%;
+  margin-bottom: 160px;
 }
 
 .item-container {
@@ -20,3 +21,13 @@
   align-items: center;
   gap: 16px;
 }
+
+.cart-buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+}
+
+/* .cart-username {
+  text-transform: capitalize;
+} */

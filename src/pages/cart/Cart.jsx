@@ -5,6 +5,8 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./components/CartItem";
 import Button from "#components/Button";
+import { capitalizeName } from "../../userSlice";
+import { clearCart } from "../../cartSlice";
 // import { useNavigate } from "react-router-dom";
 
 function Cart() {
@@ -24,15 +26,18 @@ function Cart() {
         <FontAwesomeIcon className="arrow-icon" icon={faArrowLeft} />
         Back to menu
       </Link>
-      <h2>Your cart, {username}</h2>
+      {/* username mora imat prvo veliko slovo, jel to bolje pomocu js ili css??? */}
+      <h2 className="cart-username"> Your cart, {username}</h2>
       <div className="order">
         {cart.map((pizza) => {
           return <CartItem key={pizza.id} {...pizza} />;
         })}
         {/* <p></p> */}
       </div>
-      <Button value="ORDER PIZZAS" type="button" style="btn" />
-      <Button value="CLEAR CART" type="button" style="btn gray" />
+      <div className="cart-buttons">
+        <Button value="ORDER PIZZAS" type="button" style="btn" />
+        <Button value="CLEAR CART" type="button" style="btn gray" handler={() => dispatch(clearCart())} />
+      </div>
     </div>
   );
 }

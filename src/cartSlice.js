@@ -17,6 +17,9 @@ const cartSlice = createSlice({
       );
       state.cart = updatedCart;
     },
+    clearCart: (state) => {
+      state.cart.splice(0, state.cart.length)
+    },
     increaseAmount: (state, action) => {
       state.cart.map((pizza) => {
         if (pizza.id === action.payload) pizza.amount += 1;
@@ -50,7 +53,7 @@ function totalPrice(array) {
   return {totalPrice, uniqueIds};
 }
 
-export const { addToCart, increaseAmount, decreaseAmount, removeFromCart } =
+export const { addToCart, increaseAmount, decreaseAmount, removeFromCart, clearCart } =
   cartSlice.actions;
 export default cartSlice.reducer;
 export { totalPrice };
