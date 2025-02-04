@@ -10,7 +10,7 @@ function Footer() {
   let totalPrice = 0;
 
   cart.forEach((item) => {
-    totalPrice += item.unitPrice;
+    totalPrice += item.unitPrice * item.amount;
     if (uniqueIds.includes(item.id)) return;
     else uniqueIds.push(item.id);
   });

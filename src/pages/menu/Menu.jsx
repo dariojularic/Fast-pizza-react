@@ -16,7 +16,7 @@ const Menu = () => {
         const response = await fetch(url);
         const data = await response.json();
         data.data.forEach(pizza => {
-          pizza.amount = 0
+          pizza.amount = 1
         })
         console.log(data.data)
         setPizzaMenu(data.data);
