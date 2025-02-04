@@ -1,0 +1,22 @@
+.back-button {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
+
+.container {
+  width: 55%;
+}
+
+.item-container {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  width: 100%;
+}
+
+.cart-item-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
