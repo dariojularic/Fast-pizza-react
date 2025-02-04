@@ -5,7 +5,8 @@ import {
   increaseAmount,
   decreaseAmount,
   removeFromCart,
-} from "../../cartSlice";
+} from "../../../../cartSlice";
+import { useState } from "react";
 
 const PizzaCard = ({
   id,
@@ -14,16 +15,16 @@ const PizzaCard = ({
   soldOut,
   price,
   image,
-  amount,
   handler,
 }) => {
   const dispatch = useDispatch();
   const style = soldOut ? "pizza-image gray" : "pizza-image";
   const { cart } = useSelector((store) => store.cart);
+  const [amount, setAmount] = useState(0)
 
   // kako prikazat amount?
   // stavit useState za amount
-  const selectedPizza = cart.filter((pizza) => pizza.id === id);
+  // const selectedPizza = cart.filter((pizza) => pizza.id === id);
 
   return (
     <li>
@@ -43,16 +44,20 @@ const PizzaCard = ({
                 type="button"
                 handler={() => {
                   dispatch(decreaseAmount(id));
+                  setAmount(prev => prev - 1)
                 }}
               />
               {/* amount */}
-              <p className="amount">{selectedPizza[0].amount}</p>
+              {/* <p className="amount">{selectedPizza[0].amount}</p> */}
+              <p className="amount">{amount}</p>
               <Button
                 style="btn change-amount-btn"
                 value="+"
                 type="button"
                 handler={() => {
                   dispatch(increaseAmount(id));
+                  // provjerit jel ovo ok. prvo povecam global state a onda state od PizzaCarda
+                  setAmount(prev => prev + 1)
                 }}
               />
               <Button
@@ -76,7 +81,12 @@ const PizzaCard = ({
                 style="btn add-btn"
                 value="ADD TO CART"
                 type="button"
-                handler={() => handler()}
+                handler={() => {
+                  handler()
+                  dispatch(increaseAmount(id))
+                  setAmount(prev => prev + 1)
+                  // provjerit jel ovo gore ok. znaci prvo dodam pizzu u cart i onda povecam amount za 1 tj sa 0 na 1
+                }}
               />
             )}
           </div>

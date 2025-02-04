@@ -4,19 +4,12 @@ const initialState = {
   cart: [],
 };
 
-// zasto u addToCart ne mogu radit --state.cart = state.cart.push(action.payload)-- a decrease amount mogu
-
-
-// pogledat immer u redux toolkitdocs
-
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const updatedCart = [...state.cart, action.payload];
-      state.cart = updatedCart;
-      // state.cart = state.cart.push(action.payload)
+      state.cart.push(action.payload)
     },
     removeFromCart: (state, action) => {
       const updatedCart = state.cart.filter(
@@ -45,10 +38,19 @@ const cartSlice = createSlice({
   },
 });
 
-// totalPrice - procitat clanak sa IG
+function totalPrice(array) {
+  let totalPrice = 0;
+  const uniqueIds = [];
 
-
+  array.forEach((item) => {
+    totalPrice += item.unitPrice * item.amount;
+    if (uniqueIds.includes(item.id)) return;
+    else uniqueIds.push(item.id);
+  });
+  return {totalPrice, uniqueIds};
+}
 
 export const { addToCart, increaseAmount, decreaseAmount, removeFromCart } =
   cartSlice.actions;
 export default cartSlice.reducer;
+export { totalPrice };

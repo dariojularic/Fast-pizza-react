@@ -21,9 +21,10 @@ footer {
 
 .open-cart {
   color: white;
-}
-
-a {
   text-decoration: none;
   cursor: pointer;
+}
+
+.arrow-icon {
+  font-size: 16px;
 }

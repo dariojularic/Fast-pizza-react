@@ -1,34 +1,26 @@
 import "./Footer.css";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-// font awesome icone koristit kao i prije ili react opciju?
-// jel moram koristit button za link ili mogu div??
-// kako stavit iconu sa font awesome, normalno ili react verziju
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { totalPrice } from "../../cartSlice";
 
 function Footer() {
+  // jel mi ovdje uopce treba ovaj useSelector i parametar za total price ili to prebacim u cartSlice???
   const { cart } = useSelector((store) => store.cart);
-  const uniqueIds = [];
-  // jel mogu imat ovu let varijablu za totalPrice???
-  let totalPrice = 0;
-
-  cart.forEach((item) => {
-    totalPrice += item.unitPrice * item.amount;
-    if (uniqueIds.includes(item.id)) return;
-    else uniqueIds.push(item.id);
-  });
+  const total = totalPrice(cart);
 
   return (
     <footer>
       <div className="cart-info">
-        <p className="unique-ids">{uniqueIds.length}</p>
-        <p className="total-price">€{totalPrice.toFixed(2)}</p>
+        <p className="unique-ids">{total.uniqueIds.length}</p>{" "}
+        <p className="total-price">€{total.totalPrice.toFixed(2)}</p>
       </div>
       <Link className="open-cart" to="/cart">
-        OPEN CART
+        OPEN CART{" "}
+        <FontAwesomeIcon className="arrow-icon" icon={faArrowRight} />
       </Link>
     </footer>
   );
 }
-// <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
 export default Footer;
