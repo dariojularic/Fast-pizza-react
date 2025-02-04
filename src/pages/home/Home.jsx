@@ -6,23 +6,6 @@ import { Link } from "react-router-dom";
 import { addUser } from "../../userSlice";
 import { useDispatch } from "react-redux";
 
-// folder layouts
-// --navigation
-// --footer
-
-// folder components
-// button.jsx
-// input.jsx
-// generalno gradivne komponente neovisne o jednom dijelu stranice specificno
-
-// pages
-// --home
-// ----components
-// ----menu.jsx
-// --hooks
-// --useBlaBla.jsx
-// --index.jsx
-
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();

@@ -18,3 +18,12 @@ footer {
 .total-price {
   margin-left: 16px;
 }
+
+.open-cart {
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}

@@ -16,7 +16,9 @@ const Menu = () => {
         const response = await fetch(url);
         const data = await response.json();
         data.data.forEach(pizza => {
+          // ocu ovdje stavit da je amount odma 1 ili prvo 0 pa kad dodam u kosaricu povecam na 1
           pizza.amount = 1
+          // prvo stavit 0 pa povecat na 1
         })
         setPizzaMenu(data.data);
       } catch (error) {
@@ -49,5 +51,8 @@ const Menu = () => {
     </ul>
   );
 };
+
+
+
 
 export default Menu;

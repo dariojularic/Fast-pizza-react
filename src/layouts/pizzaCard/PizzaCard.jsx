@@ -1,7 +1,11 @@
 import Button from "#components/Button";
 import "./PizzaCard.css";
 import { useSelector, useDispatch } from "react-redux";
-import { increaseAmount, decreaseAmount, removeFromCart } from "../../cartSlice";
+import {
+  increaseAmount,
+  decreaseAmount,
+  removeFromCart,
+} from "../../cartSlice";
 
 const PizzaCard = ({
   id,
@@ -18,7 +22,8 @@ const PizzaCard = ({
   const { cart } = useSelector((store) => store.cart);
 
   // kako prikazat amount?
-  const selectedPizza = cart.filter(pizza => pizza.id === id)
+  // stavit useState za amount
+  const selectedPizza = cart.filter((pizza) => pizza.id === id);
 
   return (
     <li>
@@ -40,6 +45,7 @@ const PizzaCard = ({
                   dispatch(decreaseAmount(id));
                 }}
               />
+              {/* amount */}
               <p className="amount">{selectedPizza[0].amount}</p>
               <Button
                 style="btn change-amount-btn"
@@ -49,9 +55,14 @@ const PizzaCard = ({
                   dispatch(increaseAmount(id));
                 }}
               />
-              <Button style="btn delete-btn" value="DELETE" type="button" handler={() => {
-                dispatch(removeFromCart(id))
-              }} />
+              <Button
+                style="btn delete-btn"
+                value="DELETE"
+                type="button"
+                handler={() => {
+                  dispatch(removeFromCart(id));
+                }}
+              />
             </div>
             <p className="pizza-price">{price.toFixed(2)}</p>
           </div>
@@ -70,24 +81,9 @@ const PizzaCard = ({
             )}
           </div>
         )}
-        {/* <div className="price-button-container">
-          <p className="pizza-price">
-            {soldOut ? "SOLD OUT" : "€" + price.toFixed(2)}
-          </p>
-          {soldOut ? null : (
-            <Button
-              style="btn add-btn"
-              value="ADD TO CART"
-              type="button"
-              handler={() => handler()}
-            />
-          )}
-        </div> */}
       </div>
     </li>
   );
 };
 
 export default PizzaCard;
-
-// 08004100104

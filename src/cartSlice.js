@@ -6,6 +6,9 @@ const initialState = {
 
 // zasto u addToCart ne mogu radit --state.cart = state.cart.push(action.payload)-- a decrease amount mogu
 
+
+// pogledat immer u redux toolkitdocs
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -41,6 +44,10 @@ const cartSlice = createSlice({
     },
   },
 });
+
+// totalPrice - procitat clanak sa IG
+
+
 
 export const { addToCart, increaseAmount, decreaseAmount, removeFromCart } =
   cartSlice.actions;
