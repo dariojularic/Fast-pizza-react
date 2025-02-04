@@ -1,7 +1,7 @@
 import Button from "#components/Button";
 import "./PizzaCard.css";
 import { useSelector, useDispatch } from "react-redux";
-import { increaseAmount, decreaseAmount } from "../../cartSlice";
+import { increaseAmount, decreaseAmount, removeFromCart } from "../../cartSlice";
 
 const PizzaCard = ({
   id,
@@ -17,15 +17,8 @@ const PizzaCard = ({
   const style = soldOut ? "pizza-image gray" : "pizza-image";
   const { cart } = useSelector((store) => store.cart);
 
+  // kako prikazat amount?
   const selectedPizza = cart.filter(pizza => pizza.id === id)
-  // console.log(selectedPizza)
-  if (selectedPizza.length !== 0) console.log(selectedPizza[0].amount)
-
-
-  // console.log(cart)
-
-
-
 
   return (
     <li>
@@ -45,7 +38,6 @@ const PizzaCard = ({
                 type="button"
                 handler={() => {
                   dispatch(decreaseAmount(id));
-                  // console.log(cart);
                 }}
               />
               <p className="amount">{selectedPizza[0].amount}</p>
@@ -55,10 +47,11 @@ const PizzaCard = ({
                 type="button"
                 handler={() => {
                   dispatch(increaseAmount(id));
-                  // console.log(cart);
                 }}
               />
-              <Button style="btn delete-btn" value="DELETE" type="button" />
+              <Button style="btn delete-btn" value="DELETE" type="button" handler={() => {
+                dispatch(removeFromCart(id))
+              }} />
             </div>
             <p className="pizza-price">{price.toFixed(2)}</p>
           </div>

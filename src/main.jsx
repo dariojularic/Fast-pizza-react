@@ -7,13 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "#pages/home/Home.jsx";
 import Menu from "#pages/menu/Menu.jsx";
 import SharedLayout from "#layouts/SharedLayout.jsx";
+import Cart from "./pages/cart/Cart.jsx";
 
-// vidjet kako dodat path alias
-// primjer - import home from "#root/pages/home/index.jsx"
-// #root je root projekta ili src folder
-// fetch api
-// render list
-//
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "menu",
         element: <Menu />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
     ],
   },

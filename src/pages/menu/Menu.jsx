@@ -18,7 +18,6 @@ const Menu = () => {
         data.data.forEach(pizza => {
           pizza.amount = 1
         })
-        console.log(data.data)
         setPizzaMenu(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
