@@ -24,7 +24,7 @@ function Cart() {
     <div className="container">
       <Link className="back-button" to="/menu">
         <FontAwesomeIcon className="arrow-icon" icon={faArrowLeft} />
-        Back to menu
+        <p>Back to menu</p>
       </Link>
       {/* username mora imat prvo veliko slovo, jel to bolje pomocu js ili css??? */}
       <h2 className="cart-username"> Your cart, {username}</h2>
