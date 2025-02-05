@@ -6,7 +6,6 @@ import {
   decreaseAmount,
   removeFromCart,
 } from "../../../../cartSlice";
-import { useState } from "react";
 
 const PizzaCard = ({
   id,
@@ -20,13 +19,8 @@ const PizzaCard = ({
   const dispatch = useDispatch();
   const style = soldOut ? "pizza-image gray" : "pizza-image";
   const { cart } = useSelector((store) => store.cart);
-  const [amount, setAmount] = useState(0)
 
-  // kako prikazat amount?
-  // stavit useState za amount
-  // const selectedPizza = cart.filter((pizza) => pizza.id === id);
-
-  // koristit funkciju find - maknut useState, sve ide preko globalnog state
+  const selectedPizza = cart.find((pizza) => pizza.id === id);
 
   return (
     <li>
@@ -46,20 +40,15 @@ const PizzaCard = ({
                 type="button"
                 handler={() => {
                   dispatch(decreaseAmount(id));
-                  setAmount(prev => prev - 1)
                 }}
               />
-              {/* amount */}
-              {/* <p className="amount">{selectedPizza[0].amount}</p> */}
-              <p className="amount">{amount}</p>
+              <p className="amount">{selectedPizza.amount}</p>
               <Button
                 style="btn change-amount-btn"
                 value="+"
                 type="button"
                 handler={() => {
                   dispatch(increaseAmount(id));
-                  // provjerit jel ovo ok. prvo povecam global state a onda state od PizzaCarda
-                  setAmount(prev => prev + 1)
                 }}
               />
               <Button
@@ -86,8 +75,6 @@ const PizzaCard = ({
                 handler={() => {
                   handler()
                   dispatch(increaseAmount(id))
-                  setAmount(prev => prev + 1)
-                  // provjerit jel ovo gore ok. znaci prvo dodam pizzu u cart i onda povecam amount za 1 tj sa 0 na 1
                 }}
               />
             )}

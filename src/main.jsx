@@ -27,10 +27,20 @@ const router = createBrowserRouter([
         path: "cart",
         element: <Cart />,
       },
-      // {
-      //   path: "cart",
-      //   element: <Cart />,
-      // },
+      {
+        path: "order",
+        // element: <Order />,
+        children: [
+          {
+            path: "new",
+            // element: <OrderNew />
+          },
+          {
+            path: "id",
+            // element: <Id />
+          },
+        ]
+      },
     ],
   },
 ]);

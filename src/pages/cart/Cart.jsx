@@ -5,7 +5,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./components/CartItem";
 import Button from "#components/Button";
-import { capitalizeName } from "../../userSlice";
+import { capitalizeName } from "#root/src/helpers";
 import { clearCart } from "../../cartSlice";
 
 function Cart() {
@@ -26,7 +26,8 @@ function Cart() {
         })}
       </div>
       <div className="cart-buttons">
-        <Button value="ORDER PIZZAS" type="button" style="btn" />
+        {/* <Button value="ORDER PIZZAS" type="button" style="btn" /> */}
+        <Link className="btn link" to="/order/new">ORDER PIZZAS</Link>
         <Button value="CLEAR CART" type="button" style="btn gray" handler={() => dispatch(clearCart())} />
       </div>
     </div>
