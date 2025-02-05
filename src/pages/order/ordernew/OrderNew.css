@@ -1,0 +1,21 @@
+.order-new-container {
+  width: 55%;
+
+}
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  margin-top: 16px;
+}
+
+.checkbox-input[type="checkbox"] {
+  width: 40px;
+  height: 24px;
+}

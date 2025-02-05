@@ -1,0 +1,11 @@
+.input-label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-input-field {
+  background-color: white;
+  height: 40px;
+  width: 70%;
+}

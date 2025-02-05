@@ -8,6 +8,7 @@ import Home from "#pages/home/Home.jsx";
 import Menu from "#pages/menu/Menu.jsx";
 import SharedLayout from "#layouts/SharedLayout.jsx";
 import Cart from "./pages/cart/Cart.jsx";
+import OrderNew from "./pages/order/ordernew/OrderNew.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "new",
-            // element: <OrderNew />
+            element: <OrderNew />
           },
           {
             path: "id",

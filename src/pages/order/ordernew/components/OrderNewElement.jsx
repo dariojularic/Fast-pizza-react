@@ -1,11 +1,19 @@
-import Input from "#components/Input"
+import "./OrderNewElement.css";
+import { useSelector } from "react-redux";
 
-function OrderNewElement() {
-  return(
+function OrderNewElement({ value, name }) {
+  const { username } = useSelector(store => store.user)
+  const inputValue = (name === "first-name") ? username : ""
+
+  return (
     <div className="order-element">
-      <label htmlFor=""></label>
-      <Input />
+      <div className="input-label-container">
+        <label htmlFor={name}>{value}</label>
+        <input type="text" name={name} className="order-input-field" defaultValue={inputValue}  />
+      </div>
       <hr />
     </div>
-  )
+  );
 }
+
+export default OrderNewElement;

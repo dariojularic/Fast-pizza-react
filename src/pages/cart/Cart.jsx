@@ -26,7 +26,6 @@ function Cart() {
         })}
       </div>
       <div className="cart-buttons">
-        {/* <Button value="ORDER PIZZAS" type="button" style="btn" /> */}
         <Link className="btn link" to="/order/new">ORDER PIZZAS</Link>
         <Button value="CLEAR CART" type="button" style="btn gray" handler={() => dispatch(clearCart())} />
       </div>
