@@ -7,18 +7,11 @@ import CartItem from "./components/CartItem";
 import Button from "#components/Button";
 import { capitalizeName } from "../../userSlice";
 import { clearCart } from "../../cartSlice";
-// import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const { username } = useSelector((store) => store.user);
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
-  // console.log(username);
-
-  // const navigate = useNavigate();
-  // const handleBack = () => {
-  //   navigate(-1);
-  // };
 
   return (
     <div className="container">
@@ -26,13 +19,11 @@ function Cart() {
         <FontAwesomeIcon className="arrow-icon" icon={faArrowLeft} />
         <p>Back to menu</p>
       </Link>
-      {/* username mora imat prvo veliko slovo, jel to bolje pomocu js ili css??? */}
-      <h2 className="cart-username"> Your cart, {username}</h2>
+      <h2 className="cart-username"> Your cart, {capitalizeName(username)}</h2>
       <div className="order">
         {cart.map((pizza) => {
           return <CartItem key={pizza.id} {...pizza} />;
         })}
-        {/* <p></p> */}
       </div>
       <div className="cart-buttons">
         <Button value="ORDER PIZZAS" type="button" style="btn" />

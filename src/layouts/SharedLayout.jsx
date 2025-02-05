@@ -12,7 +12,6 @@ const SharedLayout = () => {
       {
         (cart.length > 0) && <Footer />
       }
-      {/* <Footer /> */}
     </>
   );
 };

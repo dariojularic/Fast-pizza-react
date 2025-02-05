@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: [],
@@ -18,7 +19,7 @@ const cartSlice = createSlice({
       state.cart = updatedCart;
     },
     clearCart: (state) => {
-      state.cart.splice(0, state.cart.length)
+      state.cart = []
     },
     increaseAmount: (state, action) => {
       state.cart.map((pizza) => {
@@ -41,6 +42,14 @@ const cartSlice = createSlice({
   },
 });
 
+// export const totalPrice = createSelector()
+
+// export const selectTotalAmount = createSelector([selectItems], (items) =>
+//   items.reduce((amount, item) => amount + item.amount, 0)
+
+// );
+
+
 function totalPrice(array) {
   let totalPrice = 0;
   const uniqueIds = [];
@@ -50,6 +59,7 @@ function totalPrice(array) {
     if (uniqueIds.includes(item.id)) return;
     else uniqueIds.push(item.id);
   });
+  // provjerit jel ok return ovaj objekt
   return {totalPrice, uniqueIds};
 }
 

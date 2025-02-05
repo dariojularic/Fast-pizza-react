@@ -26,6 +26,8 @@ const PizzaCard = ({
   // stavit useState za amount
   // const selectedPizza = cart.filter((pizza) => pizza.id === id);
 
+  // koristit funkciju find - maknut useState, sve ide preko globalnog state
+
   return (
     <li>
       <img className={style} src={image} alt="" />

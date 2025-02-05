@@ -27,9 +27,15 @@ const router = createBrowserRouter([
         path: "cart",
         element: <Cart />,
       },
+      // {
+      //   path: "cart",
+      //   element: <Cart />,
+      // },
     ],
   },
 ]);
+
+// order ruta sa dvije child rute- jedna je new a druga je id
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
