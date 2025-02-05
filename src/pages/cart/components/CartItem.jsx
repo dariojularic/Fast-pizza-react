@@ -1,4 +1,4 @@
-import "./CartItem";
+import "./CartItem.css";
 import Button from "#components/Button.jsx";
 import { removeFromCart, increaseAmount, decreaseAmount } from "#root/src/cartSlice"
 import { useDispatch } from "react-redux";
