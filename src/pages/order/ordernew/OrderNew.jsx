@@ -47,6 +47,7 @@ function OrderNew() {
 
   return (
     <div className="order-new-container">
+      {/* provjerit apostrof */}
       <h2>Ready to order? Let's go!</h2>
       <form
         onSubmit={() => handleSubmit()}
