@@ -42,7 +42,7 @@ const PizzaCard = ({
                   dispatch(decreaseAmount(id));
                 }}
               />
-              <p className="amount">{selectedPizza.amount}</p>
+              <p className="amount">{selectedPizza.quantity}</p>
               <Button
                 style="btn change-amount-btn"
                 value="+"

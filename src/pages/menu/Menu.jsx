@@ -15,7 +15,11 @@ const Menu = () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        data.data.forEach((pizza) => (pizza.amount = 0));
+        data.data.forEach((pizza) => {
+          pizza.quantity = 0
+          pizza.pizzaId = pizza.id
+          // ovo jos moram doradit - preimenovat id u pizzaId
+        });
         setPizzaMenu(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -32,13 +36,14 @@ const Menu = () => {
       {pizzaMenu.map((pizza) => {
         return (
           <PizzaCard
-            key={pizza.id}
+            key={pizza.pizzaId}
+            // key={pizza.id}
             id={pizza.id}
             name={pizza.name}
             ingredients={pizza.ingredients}
             soldOut={pizza.soldOut}
             image={pizza.imageUrl}
-            amount={pizza.amount}
+            quantity={pizza.quantity}
             price={pizza.unitPrice}
             handler={() => dispatch(addToCart(pizza))}
           />

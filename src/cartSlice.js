@@ -23,17 +23,17 @@ const cartSlice = createSlice({
     },
     increaseAmount: (state, action) => {
       state.cart.map((pizza) => {
-        if (pizza.id === action.payload) pizza.amount += 1;
+        if (pizza.id === action.payload) pizza.quantity += 1;
         return;
       });
     },
     decreaseAmount: (state, action) => {
       state.cart.map((pizza) => {
-        if (pizza.id === action.payload && pizza.amount > 1) {
-          pizza.amount -= 1;
+        if (pizza.id === action.payload && pizza.quantity > 1) {
+          pizza.quantity -= 1;
           return;
         }
-        if (pizza.id === action.payload && pizza.amount <= 1)
+        if (pizza.id === action.payload && pizza.quantity <= 1)
           state.cart = state.cart.filter(
             (pizza) => pizza.id !== action.payload
           );
@@ -55,7 +55,7 @@ function totalPrice(array) {
   const uniqueIds = [];
 
   array.forEach((item) => {
-    totalPrice += item.unitPrice * item.amount;
+    totalPrice += item.unitPrice * item.quantity;
     if (uniqueIds.includes(item.id)) return;
     else uniqueIds.push(item.id);
   });

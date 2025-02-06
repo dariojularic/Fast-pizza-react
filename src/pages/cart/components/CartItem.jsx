@@ -7,14 +7,14 @@ import {
 } from "#root/src/cartSlice";
 import { useDispatch } from "react-redux";
 
-function CartItem({ id, name, unitPrice, amount }) {
+function CartItem({ id, name, unitPrice, quantity }) {
   const dispatch = useDispatch();
 
   return (
     <>
       <div className="item-container">
         <p>
-          {amount} x {name}
+          {quantity} x {name}
         </p>
 
         <div className="cart-item-buttons">
@@ -25,7 +25,7 @@ function CartItem({ id, name, unitPrice, amount }) {
             style="btn change-amount-btn"
             handler={() => dispatch(decreaseAmount(id))}
           />
-          <p>{amount}</p>
+          <p>{quantity}</p>
           <Button
             type="button"
             value="+"

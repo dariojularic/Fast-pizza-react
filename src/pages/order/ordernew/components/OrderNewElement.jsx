@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 function OrderNewElement({ value, name }) {
   const { username } = useSelector(store => store.user)
-  const inputValue = (name === "first-name") ? username : ""
+  const inputValue = (name === "customer") ? username : ""
 
   return (
     <div className="order-element">
