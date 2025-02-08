@@ -19,8 +19,8 @@
   gap: 16px;
 }
 
-.status-preparing {
-  background-color: #2aeb2a;
+.status-paragraph {
+  align-self: center;
 }
 
 .priority-paragraph {
@@ -38,4 +38,10 @@
 
 h3 {
   font-weight: 500;
+}
+
+.delivery-time {
+  font-size: 14px;
+  align-self: center;
+  color: rgb(45, 45, 45);
 }

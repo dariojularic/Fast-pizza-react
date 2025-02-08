@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import "./OrderId.css";
 import { useParams } from "react-router-dom";
 import Loader from "#layouts/loader/Loader.jsx";
-import formatDistanceToNow from "date-fns"
+import { formatDistanceToNow, format } from "date-fns";
 
 function OrderId() {
   const [orderStatus, setOrderStatus] = useState({});
   const [orderStatusReady, setOrderStatusReady] = useState(false);
   const params = useParams();
+
+  const date =  new Date(orderStatus.estimatedDelivery)
+  console.log(date)
 
   useEffect(() => {
     async function fetchData() {
@@ -18,7 +21,7 @@ function OrderId() {
         const data = await response.json();
         setOrderStatus(data.data);
         setOrderStatusReady(true);
-        console.log(data.data);
+        // console.log(data.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -27,7 +30,7 @@ function OrderId() {
     fetchData();
   }, []);
 
-  console.log(orderStatus);
+  // console.log(orderStatus);
 
   if (orderStatusReady === false) return <Loader />;
 
@@ -36,14 +39,16 @@ function OrderId() {
       <div className="order-status">
         <h3>Order #{orderStatus.id} status</h3>
         <div className="priority-status-container">
-          {orderStatus.priority && <p className="priority-paragraph">PRIORITY</p>}
-          <p className="status-paragraph">{orderStatus.status}</p>
+          {orderStatus.priority && (
+            <p className="priority-paragraph">PRIORITY</p>
+          )}
+          <p className="status-paragraph">{orderStatus.status.toUpperCase()}</p>
         </div>
       </div>
 
       <div className="delivery-container">
-        <p>Only 20 minutes left 😀</p>
-        <p>Estimated delivery: {orderStatus.estimatedDelivery}</p>
+        <p className="until-delivery">Only {formatDistanceToNow(new Date(orderStatus.estimatedDelivery))} left 😀</p>
+        <p className="delivery-time">Estimated delivery: {format( new Date(orderStatus.estimatedDelivery), 'MMM d, hh:mm a')}</p>
       </div>
 
       <div className="order-container">
