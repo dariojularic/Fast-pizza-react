@@ -10,7 +10,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.cart.push(action.payload)
+      state.cart.push(action.payload);
     },
     removeFromCart: (state, action) => {
       const updatedCart = state.cart.filter(
@@ -19,7 +19,7 @@ const cartSlice = createSlice({
       state.cart = updatedCart;
     },
     clearCart: (state) => {
-      state.cart = []
+      state.cart = [];
     },
     increaseAmount: (state, action) => {
       state.cart.map((pizza) => {
@@ -42,28 +42,21 @@ const cartSlice = createSlice({
   },
 });
 
-// export const totalPrice = createSelector()
+export const getCart = (state) => state.cart.cart;
+export const totalPrice = createSelector([getCart], (pizzas) =>
+  pizzas.reduce((price, item) => price + item.unitPrice * item.quantity, 0)
+);
 
-// export const selectTotalAmount = createSelector([selectItems], (items) =>
-//   items.reduce((amount, item) => amount + item.amount, 0)
+export const numOfDiffPizzas = createSelector(
+  [getCart],
+  (pizzas) => pizzas.length
+);
 
-// );
-
-
-function totalPrice(array) {
-  let totalPrice = 0;
-  const uniqueIds = [];
-
-  array.forEach((item) => {
-    totalPrice += item.unitPrice * item.quantity;
-    if (uniqueIds.includes(item.id)) return;
-    else uniqueIds.push(item.id);
-  });
-  // provjerit jel ok return ovaj objekt
-  return {totalPrice, uniqueIds};
-}
-
-export const { addToCart, increaseAmount, decreaseAmount, removeFromCart, clearCart } =
-  cartSlice.actions;
 export default cartSlice.reducer;
-export { totalPrice };
+export const {
+  addToCart,
+  increaseAmount,
+  decreaseAmount,
+  removeFromCart,
+  clearCart,
+} = cartSlice.actions;
