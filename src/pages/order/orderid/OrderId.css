@@ -1,0 +1,41 @@
+.order-id {
+  width: 55%;
+}
+
+.order-status, .delivery-container, .pizza-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+}
+
+.price-container, .delivery-container {
+  background-color: #E7E5E4;
+  padding: 8px 16px;
+  margin-top: 32px;
+}
+
+.priority-status-container {
+  display: flex;
+  gap: 16px;
+}
+
+.status-preparing {
+  background-color: #2aeb2a;
+}
+
+.priority-paragraph {
+  background-color: rgb(250, 60, 60);
+  padding: 4px 8px;
+  font-size: 16px;
+  border-radius: 99px;
+  box-sizing: border-box;
+  align-self: center;
+}
+
+.num-of-pizzas, .pizza-price {
+  margin: 4px 0px 0px 0px;
+}
+
+h3 {
+  font-weight: 500;
+}
