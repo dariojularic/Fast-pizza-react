@@ -1,6 +1,5 @@
 nav {
   background-color: #FACC15;
-  /* width: calc(100% - 48px); */
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -10,4 +9,9 @@ nav {
 
 h2 {
   font-weight: 500;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: black;
 }

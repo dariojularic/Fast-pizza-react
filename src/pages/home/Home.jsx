@@ -4,11 +4,14 @@ import Button from "#components/Button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { addUser } from "../../userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
+  const { username } = useSelector((state) => state.user);
+
+  // if (username !== "") return <div className="btn">ORDER PIZZA</div>;
 
   return (
     <div className="landing-page">
@@ -21,32 +24,38 @@ const Home = () => {
         </h1>
       </div>
 
-      <div className="user-input-container">
-        <h3>👋 Welcome! Please start by telling us your name: </h3>
-        <form className="add-user-form" action="">
-          <Input
-            type="text"
-            placeholder="Your full name"
-            name="username"
-            handler={(event) => {
-              setInputValue(event.target.value);
-            }}
-          />
+      {username !== "" ? (
+        <Link to="/menu" className="btn link username">
+          CONTINUE ORDERING, {username.toUpperCase()}
+        </Link>
+      ) : (
+        <div className="user-input-container">
+          <h3>👋 Welcome! Please start by telling us your name: </h3>
+          <form className="add-user-form" action="">
+            <Input
+              type="text"
+              placeholder="Your full name"
+              name="username"
+              handler={(event) => {
+                setInputValue(event.target.value);
+              }}
+            />
 
-          {inputValue !== "" && (
-            <Link to="/menu">
-              <Button
-                style="btn"
-                type="submit"
-                value="Submit name"
-                handler={() => {
-                  dispatch(addUser(inputValue));
-                }}
-              />
-            </Link>
-          )}
-        </form>
-      </div>
+            {inputValue !== "" && (
+              <Link to="/menu">
+                <Button
+                  style="btn"
+                  type="submit"
+                  value="Submit name"
+                  handler={() => {
+                    dispatch(addUser(inputValue));
+                  }}
+                />
+              </Link>
+            )}
+          </form>
+        </div>
+      )}
     </div>
   );
 };

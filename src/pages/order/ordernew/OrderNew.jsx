@@ -30,9 +30,22 @@ function OrderNew() {
     });
   }
 
+  function getLocation() {
+    console.log(navigator.geolocation.getCurrentPosition(position => {
+      console.log(position)
+      console.log(position.coords.latitude)
+      console.log(position.coords.longitude)
+    }))
+    // console.log(Geolocation.getCurrentPosition)
+
+  }
+
+  // getLocation()
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // moram jos doradit errore
     fetch("https://react-fast-pizza-api.onrender.com/api/order", {
       method: "POST",
       headers: {
@@ -63,22 +76,29 @@ function OrderNew() {
         action="https://react-fast-pizza-api.onrender.com/api/order"
       >
         <OrderNewElement
+          id="customer"
           value="First Name"
           name="customer"
           handler={(event) => handleUpdate(event)}
         />
         <OrderNewElement
+          id="phone"
           value="Phone Number"
           name="phone"
           handler={(event) => handleUpdate(event)}
         />
-        <OrderNewElement
-          value="Address"
-          name="address"
-          handler={(event) => handleUpdate(event)}
-        />
+        <div className="relative">
+          <OrderNewElement
+            id="address"
+            value="Address"
+            name="address"
+            handler={(event) => handleUpdate(event)}
+          />
+          <Button style="btn position-btn" type="button" value="GET POSITION" handler={() => getLocation()}  />
+        </div>
         <div className="checkbox-container">
           <input
+            id="priority"
             className="checkbox-input"
             type="checkbox"
             name="priority"

@@ -45,3 +45,9 @@ h3 {
   align-self: center;
   color: rgb(45, 45, 45);
 }
+
+.amount-to-pay {
+  font-weight: 600;
+  font-size: 20px;
+}
+
