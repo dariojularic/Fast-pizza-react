@@ -17,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@reduxjs/toolkit": "^2.5.0",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
     "module-alias": "^2.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
