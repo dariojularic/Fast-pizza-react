@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { totalPrice } from "#cartSlice";
-import { numOfDiffPizzas } from "#cartSlice";
+import { totalPrice, numOfDiffPizzas } from "#cartSlice";
 
 function Footer() {
   const total = useSelector(totalPrice);

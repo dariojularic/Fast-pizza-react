@@ -1,21 +1,23 @@
-import PizzaCard from "#pages/menu/components/pizzaCard/PizzaCard";
 import "./Menu.css";
-import { useState, useEffect } from "react";
+import PizzaCard from "#pages/menu/components/pizzaCard/PizzaCard";
 import Loader from "#layouts/loader/Loader";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "#cartSlice";
+import { basePizzaUrl } from "#api";
 
 const Menu = () => {
   const [pizzaMenu, setPizzaMenu] = useState([]);
   // napravit folder constants i u njega index.js i stavljam url
-  // napravit folder koji se zove API i u njega index.js 
-  const url = "https://react-fast-pizza-api.onrender.com/api/menu";
+  // napravit folder koji se zove API i u njega index.js
+  // const url = "https://react-fast-pizza-api.onrender.com/api/menu";
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
+        //
+        const response = await fetch(basePizzaUrl + "menu"); // provjerit jel ok url + menu
         const data = await response.json();
         data.data.forEach((pizza) => {
           pizza.quantity = 0
@@ -39,7 +41,6 @@ const Menu = () => {
         return (
           <PizzaCard
             key={pizza.pizzaId}
-            // key={pizza.id}
             id={pizza.id}
             name={pizza.name}
             ingredients={pizza.ingredients}

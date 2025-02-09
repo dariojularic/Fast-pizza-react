@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
 import "./OrderId.css";
-import { useParams } from "react-router-dom";
 import Loader from "#layouts/loader/Loader.jsx";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import { totalPrice } from "#cartSlice";
 import { formatDistanceToNow, format } from "date-fns";
-import { totalPrice } from "#cartSlice";
-import { useSelector } from "react-redux";
+import { calculateTotal } from "#helpers";
 
 function OrderId() {
-  const [orderStatus, setOrderStatus] = useState({});
-  const [orderStatusReady, setOrderStatusReady] = useState(false);
+  const [order, setOrder] = useState({});
+  const [orderReady, setOrderReady] = useState(false);
   const params = useParams();
-  const total = useSelector(totalPrice);
+  // const total = useSelector(totalPrice);
+  // koristim calculateTotal umjesto totalPrice iz cartSlice da bi mogo prikazat cijenu ako user koristi navbar search
+
 
   useEffect(() => {
     async function fetchData() {
@@ -19,8 +22,8 @@ function OrderId() {
           `https://react-fast-pizza-api.onrender.com/api/order/${params.id}`
         );
         const data = await response.json();
-        setOrderStatus(data.data);
-        setOrderStatusReady(true);
+        setOrder(data.data);
+        setOrderReady(true);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -29,54 +32,53 @@ function OrderId() {
     fetchData();
   }, []);
 
-  if (orderStatusReady === false) return <Loader />;
+  if (orderReady === false) return <Loader />;
 
   return (
     <div className="order-id">
       <div className="order-status">
-        <h3>Order #{orderStatus.id} status</h3>
+        <h3>Order #{order.id} status</h3>
         <div className="priority-status-container">
-          {orderStatus.priority && (
+          {order.priority && (
             <p className="priority-paragraph">PRIORITY</p>
           )}
-          <p className="status-paragraph">{orderStatus.status.toUpperCase()}</p>
+          <p className="status-paragraph">{order.status.toUpperCase()}</p>
         </div>
       </div>
 
       <div className="delivery-container">
         <p className="until-delivery">
-          Only {formatDistanceToNow(new Date(orderStatus.estimatedDelivery))}{" "}
+          Only {formatDistanceToNow(new Date(order.estimatedDelivery))}{" "}
           left 😀
         </p>
         <p className="delivery-time">
           (Estimated delivery:{" "}
-          {format(new Date(orderStatus.estimatedDelivery), "MMM d, hh:mm a")})
+          {format(new Date(order.estimatedDelivery), "MMM d, hh:mm a")})
         </p>
       </div>
 
       <div className="order-container">
-        {orderStatus.cart.map((pizza) => {
+        {order.cart.map((pizza) => {
           return (
-            // maknut fragment
-            <>
-              <div key={pizza.id} className="pizza-container">
+            <div key={pizza.id}>
+              <div  className="pizza-container">
                 <p className="num-of-pizzas">
                   {pizza.quantity} x {pizza.name}
                 </p>
                 <p className="pizza-price">€{pizza.totalPrice.toFixed(2)}</p>
               </div>
               <hr />
-            </>
+            </div>
           );
         })}
       </div>
 
       <div className="price-container">
-        <p>Price pizza: €{total}</p>
-        {orderStatus.priority && (
-          <p>Price priority: {orderStatus.priorityPrice}</p>
+        <p>Price pizza: €{calculateTotal(order.cart)}</p>
+        {order.priority && (
+          <p>Price priority: {order.priorityPrice}</p>
         )}
-        <p className="amount-to-pay">To pay on delivery: €{total}</p>
+        <p className="amount-to-pay">To pay on delivery: €{calculateTotal(order.cart) + order.priorityPrice}</p>
       </div>
     </div>
   );

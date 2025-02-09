@@ -1,5 +1,5 @@
-import Button from "#components/Button";
 import "./PizzaCard.css";
+import Button from "#components/Button";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increaseAmount,

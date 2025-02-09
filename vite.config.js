@@ -4,7 +4,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-console.log("dariooo", `${__dirname}/src/components`);
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -18,8 +17,9 @@ export default defineConfig({
       "#pages": path.resolve(__dirname, "src/pages"),
       "#cartSlice" : path.resolve(__dirname, "src/cartSlice"),
       "#userSlice" : path.resolve(__dirname, "src/userSlice"),
+      "#helpers" : path.resolve(__dirname, "src/helpers"),
+      "#api" : path.resolve(__dirname, "src/api"),
     },
   },
-  // "#components": `${__dirname}/src/components`,
   root: path.resolve(__dirname),
 });

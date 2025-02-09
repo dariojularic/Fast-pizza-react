@@ -1,10 +1,10 @@
 import "#pages/cart/Cart.css";
+import CartItem from "./components/CartItem";
+import Button from "#components/Button";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import CartItem from "./components/CartItem";
-import Button from "#components/Button";
 import { capitalizeName } from "#root/src/helpers";
 import { clearCart } from "#cartSlice";
 
@@ -26,7 +26,7 @@ function Cart() {
         })}
       </div>
       <div className="cart-buttons">
-        <Link className="btn link" to="/order/new">ORDER PIZZAS</Link>
+        <Link className="btn link" to="/order/new">SET ORDER</Link>
         <Button value="CLEAR CART" type="button" style="btn gray" handler={() => dispatch(clearCart())} />
       </div>
     </div>
