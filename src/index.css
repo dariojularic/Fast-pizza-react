@@ -5,6 +5,7 @@ html {
 body {
   margin: 0;
   height: 100vh;
+  background-color: #f5f1d4;
   font-family: Poppins;
 }
 
@@ -13,5 +14,5 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f5f1d4;
+  /* background-color: #f5f1d4; */
 }

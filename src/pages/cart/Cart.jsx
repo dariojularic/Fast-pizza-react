@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./components/CartItem";
 import Button from "#components/Button";
 import { capitalizeName } from "#root/src/helpers";
-import { clearCart } from "../../cartSlice";
+import { clearCart } from "#cartSlice";
 
 function Cart() {
   const { username } = useSelector((store) => store.user);

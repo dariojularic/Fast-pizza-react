@@ -3,10 +3,12 @@ import "./Menu.css";
 import { useState, useEffect } from "react";
 import Loader from "#layouts/loader/Loader";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../cartSlice";
+import { addToCart } from "#cartSlice";
 
 const Menu = () => {
   const [pizzaMenu, setPizzaMenu] = useState([]);
+  // napravit folder constants i u njega index.js i stavljam url
+  // napravit folder koji se zove API i u njega index.js 
   const url = "https://react-fast-pizza-api.onrender.com/api/menu";
   const dispatch = useDispatch();
 

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "#components/Button";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { totalPrice } from "../../../cartSlice";
+import { totalPrice } from "#cartSlice";
 
 function OrderNew() {
   const { cart } = useSelector((state) => state.cart);
@@ -20,9 +20,19 @@ function OrderNew() {
     priority: false,
   });
 
+
+  // ocu ispraznit cart kad submitam narudbu?
+
+  // treba li mi App.jsx???
   // lokacija nije uvijek tocna
   // gdje drzim apiKey???
+  // provjerit background-color na /menu
   const apiKey = "681243a98ce04bfab9430b85cdb1ee9f";
+
+  // vidjeti za .env file enviroment
+  // dodat apikey u njega i exportat ga
+
+
 
   function handleUpdate(event) {
     const { name, type, checked, value } = event.target;
@@ -66,6 +76,7 @@ function OrderNew() {
     );
   }
 
+  // jel handleSubmit treba bit async funkcija???
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -94,9 +105,6 @@ function OrderNew() {
       <form
         onSubmit={() => handleSubmit()}
         className="order-form"
-        method="POST"
-        // koja je svrha ovog action i method ako ga imam u fetchu???
-        action="https://react-fast-pizza-api.onrender.com/api/order"
       >
         <OrderNewElement
           id="customer"
@@ -141,7 +149,7 @@ function OrderNew() {
         <Link to="/menu">
           <Button
             type="button"
-            value={`ORDER NOW FOR €${total}`}
+            value={`ORDER NOW FOR €${total.toFixed(2)}`}
             style="btn"
             handler={(event) => {
               handleSubmit(event);

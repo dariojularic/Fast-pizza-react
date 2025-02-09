@@ -16,6 +16,8 @@ export default defineConfig({
       "#components": path.resolve(__dirname, "src/components"),
       "#layouts": path.resolve(__dirname, "src/layouts"),
       "#pages": path.resolve(__dirname, "src/pages"),
+      "#cartSlice" : path.resolve(__dirname, "src/cartSlice"),
+      "#userSlice" : path.resolve(__dirname, "src/userSlice"),
     },
   },
   // "#components": `${__dirname}/src/components`,

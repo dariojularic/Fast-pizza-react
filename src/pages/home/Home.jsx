@@ -3,7 +3,7 @@ import Input from "#components/Input.jsx";
 import Button from "#components/Button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { addUser } from "../../userSlice";
+import { addUser } from "#userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {

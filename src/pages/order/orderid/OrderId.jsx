@@ -3,14 +3,14 @@ import "./OrderId.css";
 import { useParams } from "react-router-dom";
 import Loader from "#layouts/loader/Loader.jsx";
 import { formatDistanceToNow, format } from "date-fns";
-import { totalPrice } from "../../../cartSlice";
+import { totalPrice } from "#cartSlice";
 import { useSelector } from "react-redux";
 
 function OrderId() {
   const [orderStatus, setOrderStatus] = useState({});
   const [orderStatusReady, setOrderStatusReady] = useState(false);
   const params = useParams();
-  const total = useSelector(totalPrice)
+  const total = useSelector(totalPrice);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,13 +44,20 @@ function OrderId() {
       </div>
 
       <div className="delivery-container">
-        <p className="until-delivery">Only {formatDistanceToNow(new Date(orderStatus.estimatedDelivery))} left 😀</p>
-        <p className="delivery-time">(Estimated delivery: {format( new Date(orderStatus.estimatedDelivery), 'MMM d, hh:mm a')})</p>
+        <p className="until-delivery">
+          Only {formatDistanceToNow(new Date(orderStatus.estimatedDelivery))}{" "}
+          left 😀
+        </p>
+        <p className="delivery-time">
+          (Estimated delivery:{" "}
+          {format(new Date(orderStatus.estimatedDelivery), "MMM d, hh:mm a")})
+        </p>
       </div>
 
       <div className="order-container">
         {orderStatus.cart.map((pizza) => {
           return (
+            // maknut fragment
             <>
               <div key={pizza.id} className="pizza-container">
                 <p className="num-of-pizzas">
@@ -66,7 +73,9 @@ function OrderId() {
 
       <div className="price-container">
         <p>Price pizza: €{total}</p>
-        {orderStatus.priority && <p>Price priority: {orderStatus.priorityPrice}</p>}
+        {orderStatus.priority && (
+          <p>Price priority: {orderStatus.priorityPrice}</p>
+        )}
         <p className="amount-to-pay">To pay on delivery: €{total}</p>
       </div>
     </div>
