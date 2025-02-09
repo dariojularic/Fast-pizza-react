@@ -1,15 +1,11 @@
 import "./OrderNewElement.css";
-import { useSelector } from "react-redux";
 
-function OrderNewElement({ id, value, name, handler }) {
-  const { username } = useSelector(store => store.user)
-  const inputValue = (name === "customer") ? username : ""
-
+function OrderNewElement({ id, inputValue, labelValue, name, handler }) {
   return (
     <div className="order-element">
       <div className="input-label-container">
-        <label htmlFor={id} >{value}</label>
-        <input id={id}  type="text" name={name} className="order-input-field" defaultValue={inputValue} onChange={handler} autoComplete="on"  />
+        <label htmlFor={id} >{labelValue}</label>
+        <input id={id}  type="text" name={name} className="order-input-field" defaultValue={inputValue} onChange={handler} autoComplete="on" required  />
       </div>
       <hr />
     </div>

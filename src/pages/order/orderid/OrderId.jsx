@@ -21,7 +21,6 @@ function OrderId() {
         const data = await response.json();
         setOrderStatus(data.data);
         setOrderStatusReady(true);
-        // console.log(data.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -29,8 +28,6 @@ function OrderId() {
 
     fetchData();
   }, []);
-
-  // console.log(orderStatus);
 
   if (orderStatusReady === false) return <Loader />;
 

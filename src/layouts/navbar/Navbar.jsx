@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav>
       <Link className="navbar-link" to="/">
-        <h2>Fast Pizza Co</h2>
+        <h2>Fast Pizza Co.</h2>
       </Link>
       <Input type="text" placeholder="Search order #" name="order" />
       {username === "" ? null : <h3>{username.toUpperCase()}</h3>}

@@ -20,6 +20,7 @@ function OrderNew() {
     priority: false,
   });
 
+  // lokacija nije uvijek tocna
   // gdje drzim apiKey???
   const apiKey = "681243a98ce04bfab9430b85cdb1ee9f";
 
@@ -47,8 +48,6 @@ function OrderNew() {
         )
           .then((result) => result.json())
           .then((data) => {
-            // console.log(data.features[0].properties.address_line1)
-            // console.log(data.features[0].properties.city)
             const street = data.features[0].properties.address_line1
             const city = data.features[0].properties.city
             setFormInfo({
@@ -101,25 +100,27 @@ function OrderNew() {
       >
         <OrderNewElement
           id="customer"
-          value="First Name"
+          inputValue={formInfo.customer}
+          labelValue="First Name"
           name="customer"
           handler={(event) => handleUpdate(event)}
         />
         <OrderNewElement
           id="phone"
-          value="Phone Number"
+          inputValue={formInfo.phone}
+          labelValue="Phone Number"
           name="phone"
           handler={(event) => handleUpdate(event)}
         />
         <div className="relative">
           <OrderNewElement
             id="address"
-            value="Address"
+            inputValue={formInfo.address}
+            labelValue="Address"
             name="address"
             handler={(event) => handleUpdate(event)}
           />
           <Button
-            // name="address"
             style="btn position-btn"
             type="button"
             value="GET POSITION"
