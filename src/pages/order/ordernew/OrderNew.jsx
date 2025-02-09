@@ -20,6 +20,9 @@ function OrderNew() {
     priority: false,
   });
 
+  // gdje drzim apiKey???
+  const apiKey = "681243a98ce04bfab9430b85cdb1ee9f";
+
   function handleUpdate(event) {
     const { name, type, checked, value } = event.target;
     const updatedValue = type === "checkbox" ? checked : value;
@@ -30,17 +33,39 @@ function OrderNew() {
     });
   }
 
+
   function getLocation() {
-    console.log(navigator.geolocation.getCurrentPosition(position => {
-      console.log(position)
-      console.log(position.coords.latitude)
-      console.log(position.coords.longitude)
-    }))
-    // console.log(Geolocation.getCurrentPosition)
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const [lat, long] = [
+          position.coords.latitude,
+          position.coords.longitude,
+        ];
 
+        fetch(
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${apiKey}`
+        )
+          .then((result) => result.json())
+          .then((data) => {
+            // console.log(data.features[0].properties.address_line1)
+            // console.log(data.features[0].properties.city)
+            const street = data.features[0].properties.address_line1
+            const city = data.features[0].properties.city
+            setFormInfo({
+              ...formInfo,
+              address: street + " " + city
+            })
+            console.log(formInfo)
+          });
+      },
+      (error) => {
+        console.error(error);
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    );
   }
-
-  // getLocation()
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +80,6 @@ function OrderNew() {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log("Success:", responseData.data.id);
         const orderId = responseData.data.id;
         navigate(`/order/${orderId}`);
       })
@@ -94,7 +118,13 @@ function OrderNew() {
             name="address"
             handler={(event) => handleUpdate(event)}
           />
-          <Button style="btn position-btn" type="button" value="GET POSITION" handler={() => getLocation()}  />
+          <Button
+            // name="address"
+            style="btn position-btn"
+            type="button"
+            value="GET POSITION"
+            handler={() => getLocation()}
+          />
         </div>
         <div className="checkbox-container">
           <input
