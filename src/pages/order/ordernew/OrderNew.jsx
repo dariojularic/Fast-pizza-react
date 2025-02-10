@@ -21,13 +21,9 @@ function OrderNew() {
     position: "",
     priority: false,
   });
+  // zasto je url drugaciji kad koristim navbar search?
 
-  // ocu ispraznit cart kad submitam narudbu?
-  // gdje drzim apiKey???
   const apiKey = "681243a98ce04bfab9430b85cdb1ee9f";
-
-  // vidjeti za .env file enviroment
-  // dodat apikey u njega i exportat ga
 
   function checkOrderValidity(order) {
     if (order.customer === "") return false;
@@ -55,7 +51,7 @@ function OrderNew() {
         ];
 
         fetch(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${apiKey}`
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${import.meta.env.VITE_API_KEY}`
         )
           .then((result) => result.json())
           .then((data) => {
@@ -65,7 +61,6 @@ function OrderNew() {
               ...formInfo,
               address: street + " " + city,
             });
-            console.log(formInfo);
           });
       },
       (error) => {
@@ -118,7 +113,7 @@ function OrderNew() {
       <h2>Ready to order? Let's go!</h2>
       {/* gdje ide ToastContainer??? */}
       <ToastContainer />
-      <form onSubmit={() => handleSubmit()} className="order-form">
+      <form className="order-form">
         <OrderNewElement
           id="customer"
           inputValue={formInfo.customer}
