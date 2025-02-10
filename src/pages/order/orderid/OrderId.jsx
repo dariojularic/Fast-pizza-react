@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 // import { totalPrice } from "#cartSlice";
 import { formatDistanceToNow, format } from "date-fns";
 import { calculateTotal } from "#helpers";
+import { getOrder } from "#api/index.js";
 
 function OrderId() {
   const [order, setOrder] = useState({});
@@ -16,21 +17,29 @@ function OrderId() {
 
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(
-          `https://react-fast-pizza-api.onrender.com/api/order/${params.id}`
-        );
-        const data = await response.json();
-        setOrder(data.data);
-        setOrderReady(true);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      }
-    }
-
-    fetchData();
+    getOrder(params.id).then((orderData) => {
+      console.log(orderData);
+      setOrder(orderData.data);
+      setOrderReady(true);
+    });
   }, []);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await fetch(
+  //         `https://react-fast-pizza-api.onrender.com/api/order/${params.id}`
+  //       );
+  //       const data = await response.json();
+  //       setOrder(data.data);
+  //       setOrderReady(true);
+  //     } catch (err) {
+  //       console.error("Error fetching data:", err);
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, []);
 
   if (orderReady === false) return <Loader />;
 
@@ -39,17 +48,14 @@ function OrderId() {
       <div className="order-status">
         <h3>Order #{order.id} status</h3>
         <div className="priority-status-container">
-          {order.priority && (
-            <p className="priority-paragraph">PRIORITY</p>
-          )}
+          {order.priority && <p className="priority-paragraph">PRIORITY</p>}
           <p className="status-paragraph">{order.status.toUpperCase()}</p>
         </div>
       </div>
 
       <div className="delivery-container">
         <p className="until-delivery">
-          Only {formatDistanceToNow(new Date(order.estimatedDelivery))}{" "}
-          left 😀
+          Only {formatDistanceToNow(new Date(order.estimatedDelivery))} left 😀
         </p>
         <p className="delivery-time">
           (Estimated delivery:{" "}
@@ -61,7 +67,7 @@ function OrderId() {
         {order.cart.map((pizza) => {
           return (
             <div key={pizza.id}>
-              <div  className="pizza-container">
+              <div className="pizza-container">
                 <p className="num-of-pizzas">
                   {pizza.quantity} x {pizza.name}
                 </p>
@@ -75,10 +81,11 @@ function OrderId() {
 
       <div className="price-container">
         <p>Price pizza: €{calculateTotal(order.cart)}</p>
-        {order.priority && (
-          <p>Price priority: {order.priorityPrice}</p>
-        )}
-        <p className="amount-to-pay">To pay on delivery: €{calculateTotal(order.cart) + order.priorityPrice}</p>
+        {order.priority && <p>Price priority: {order.priorityPrice}</p>}
+        <p className="amount-to-pay">
+          To pay on delivery: €
+          {calculateTotal(order.cart) + order.priorityPrice}
+        </p>
       </div>
     </div>
   );

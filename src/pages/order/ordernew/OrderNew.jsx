@@ -2,13 +2,14 @@ import "#pages/order/ordernew/OrderNew.css";
 import OrderNewElement from "#pages/order/ordernew/components/OrderNewElement";
 import Button from "#components/Button";
 import { toast, ToastContainer } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { totalPrice, clearCart } from "#cartSlice";
 import { useState } from "react";
+import { handleSubmit } from "#api/index.js";
 
 function OrderNew() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
   const { username } = useSelector((state) => state.user);
   const total = useSelector(totalPrice);
@@ -22,8 +23,7 @@ function OrderNew() {
     priority: false,
   });
   // zasto je url drugaciji kad koristim navbar search?
-
-  const apiKey = "681243a98ce04bfab9430b85cdb1ee9f";
+  // gdje ide <ToastContainer />
 
   function checkOrderValidity(order) {
     if (order.customer === "") return false;
@@ -51,7 +51,9 @@ function OrderNew() {
         ];
 
         fetch(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${import.meta.env.VITE_API_KEY}`
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${
+            import.meta.env.VITE_API_KEY
+          }`
         )
           .then((result) => result.json())
           .then((data) => {
@@ -71,42 +73,6 @@ function OrderNew() {
       }
     );
   }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!checkOrderValidity(formInfo)) {
-      toast("Please fill in all the required (*) fields");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "https://react-fast-pizza-api.onrender.com/api/order",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formInfo),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        toast("Make sure your cart is not empty");
-        toast(errorData.message);
-        throw new Error(errorData.message);
-      }
-
-      const data = await response.json();
-      const orderId = data.data.id;
-      navigate(`/order/${orderId}`);
-      dispatch(clearCart())
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="order-new-container">
@@ -154,16 +120,26 @@ function OrderNew() {
           <label htmlFor="priority">Want to give your order priority?</label>
         </div>
 
-        <Link to="/menu">
-          <Button
-            type="button"
-            value={`ORDER NOW FOR €${formInfo.priority ? (Math.round(total * 1.2).toFixed(2)) : total.toFixed(2)}`}
-            style="btn"
-            handler={(event) => {
-              handleSubmit(event);
-            }}
-          />
-        </Link>
+        <Button
+          type="button"
+          value={`ORDER NOW FOR €${
+            formInfo.priority
+              ? Math.round(total * 1.2).toFixed(2)
+              : total.toFixed(2)
+          }`}
+          style="btn"
+          handler={(event) => {
+            if (!checkOrderValidity(formInfo)) {
+              toast("Please fill in all the required (*) fields");
+              return;
+            }
+            handleSubmit(event, formInfo).then((data) => {
+              const orderId = data.data.id;
+              navigate(`/order/${orderId}`);
+              dispatch(clearCart());
+            });
+          }}
+        />
       </form>
     </div>
   );
