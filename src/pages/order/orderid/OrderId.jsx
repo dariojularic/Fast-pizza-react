@@ -2,8 +2,6 @@ import "./OrderId.css";
 import Loader from "#layouts/loader/Loader.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { totalPrice } from "#cartSlice";
 import { formatDistanceToNow, format } from "date-fns";
 import { calculateTotal } from "#helpers";
 import { getOrder } from "#api/index.js";
@@ -12,8 +10,6 @@ function OrderId() {
   const [order, setOrder] = useState({});
   const [orderReady, setOrderReady] = useState(false);
   const params = useParams();
-  // const total = useSelector(totalPrice);
-  // koristim calculateTotal umjesto totalPrice iz cartSlice da bi mogo prikazat cijenu ako user koristi navbar search
 
 
   useEffect(() => {
@@ -23,23 +19,6 @@ function OrderId() {
       setOrderReady(true);
     });
   }, []);
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await fetch(
-  //         `https://react-fast-pizza-api.onrender.com/api/order/${params.id}`
-  //       );
-  //       const data = await response.json();
-  //       setOrder(data.data);
-  //       setOrderReady(true);
-  //     } catch (err) {
-  //       console.error("Error fetching data:", err);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, []);
 
   if (orderReady === false) return <Loader />;
 

@@ -11,12 +11,17 @@ const Navbar = () => {
   const navigate = useNavigate()
   const navigateTo = `/order/${inputValue}`
 
+  function submitHandler(event) {
+    event.preventDefault()
+    navigate(navigateTo)
+  }
+
   return (
     <nav>
       <Link className="navbar-link" to="/">
         <h2>Fast Pizza Co.</h2>
       </Link>
-      <form className="navbar-form" onSubmit={() => navigate(navigateTo)}>
+      <form className="navbar-form" onSubmit={submitHandler}>
         <Input type="text" placeholder="Search order #" name="order" handler={(event) => setInputValue(event.target.value)} />
       </form>
       {username === "" ? null : <h3>{username.toUpperCase()}</h3>}

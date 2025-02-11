@@ -5,7 +5,7 @@ import {
   increaseAmount,
   decreaseAmount,
   removeFromCart,
-} from "../../../../cartSlice";
+} from "#cartSlice";
 
 const PizzaCard = ({
   id,

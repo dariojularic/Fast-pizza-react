@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { totalPrice, clearCart } from "#cartSlice";
 import { useState } from "react";
 import { handleSubmit } from "#api/index.js";
+import { getAddress } from "#api";
 
 function OrderNew() {
   const dispatch = useDispatch();
@@ -22,9 +23,9 @@ function OrderNew() {
     position: "",
     priority: false,
   });
-  // zasto je url drugaciji kad koristim navbar search?
-  // gdje ide <ToastContainer />
+  // jel moze ToastContainer ic u SharedLayouts???
 
+  // pogledat zod za validaciju
   function checkOrderValidity(order) {
     if (order.customer === "") return false;
     if (order.phone === "") return false;
@@ -42,37 +43,27 @@ function OrderNew() {
     });
   }
 
-  function getLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const [lat, long] = [
-          position.coords.latitude,
-          position.coords.longitude,
-        ];
-
-        fetch(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${
-            import.meta.env.VITE_API_KEY
-          }`
-        )
-          .then((result) => result.json())
-          .then((data) => {
-            const street = data.features[0].properties.address_line1;
-            const city = data.features[0].properties.city;
-            setFormInfo({
-              ...formInfo,
-              address: street + " " + city,
-            });
-          });
-      },
-      (error) => {
-        console.error(error);
-      },
-      {
-        enableHighAccuracy: true,
-      }
-    );
+  function getCoords() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const [lat, long] = [
+            position.coords.latitude,
+            position.coords.longitude,
+          ];
+          resolve({ lat, long });
+        },
+        (error) => {
+          reject(error);
+        },
+        {
+          enableHighAccuracy: true,
+        }
+      );
+    });
   }
+
+
 
   return (
     <div className="order-new-container">
@@ -106,7 +97,16 @@ function OrderNew() {
             style="btn position-btn"
             type="button"
             value="GET POSITION"
-            handler={() => getLocation()}
+            handler={() => {
+              getCoords()
+                .then((coords) => getAddress(coords))
+                .then((address) => {
+                  setFormInfo({
+                    ...formInfo,
+                    address: address.street + " " + address.city,
+                  });
+                });
+            }}
           />
         </div>
         <div className="checkbox-container">

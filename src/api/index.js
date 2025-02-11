@@ -4,6 +4,8 @@ export const basePizzaUrl = "https://react-fast-pizza-api.onrender.com/api/";
 export const baseGeolocationUrl =
   "https://api.geoapify.com/v1/geocode/reverse?";
 
+// podijelit code na
+
 export function getLocation() {
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -41,6 +43,25 @@ export function getLocation() {
       enableHighAccuracy: true,
     }
   );
+}
+
+
+
+export async function getAddress({ lat, long }) {
+  const response = await fetch(
+    `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${
+      import.meta.env.VITE_API_KEY
+    }`
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const street = data.features[0].properties.address_line1;
+  const city = data.features[0].properties.city;
+  return { street, city };
 }
 
 export const handleSubmit = async (event, formData) => {

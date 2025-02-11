@@ -11,8 +11,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.user);
 
-  // if (username !== "") return <div className="btn">ORDER PIZZA</div>;
-
   return (
     <div className="landing-page">
       <div className="headers">
