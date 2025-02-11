@@ -6,8 +6,34 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { totalPrice, clearCart } from "#cartSlice";
 import { useState } from "react";
-import { handleSubmit } from "#api/index.js";
+import { fetchOrderPizza } from "#api/index.js";
 import { getAddress } from "#api";
+import { z } from "zod";
+
+// napravit funkciju parseZodErrors
+// prima error koji vrati zodValidator funkcija
+// i onda to proslijedim toastu
+
+// glavni problem za rijesiti je :
+// potencijalni error koji moze doc unutar api foldera (server mi je vratio error)
+// potencijalni error koji moze doc validacijski zod
+// potencijalni error koji moze doc nezavisno od mene
+// sve ovo sinkronizovat sa uspjesno vracenim pizama
+
+const formSchema = z
+  .object({
+    address: z.string().min(5),
+    customer: z
+      .string()
+      .min(3, { message: "Name must contain at least 3 characters" }),
+    phone: z
+      .string()
+      .min(6, { message: "Phone number must contain at least 6 digits" }),
+    position: z.string().optional(),
+    priority: z.boolean(),
+    // cart: z.array().min(1),
+  })
+  .required();
 
 function OrderNew() {
   const dispatch = useDispatch();
@@ -23,16 +49,26 @@ function OrderNew() {
     position: "",
     priority: false,
   });
+
+  function parseZodErrors(errorArray) {
+    errorArray.forEach((err) => {
+      toast(err.message);
+    });
+  }
+
   // jel moze ToastContainer ic u SharedLayouts???
+  function checkFormValidity(formData) {
+    try {
+      const a = formSchema.parse(formData);
+      console.log("baegab", a);
+      return a;
+    } catch (error) {
+      parseZodErrors(error.errors);
+    }
+  }
   // kako pisat commit poruke???
 
   // pogledat zod za validaciju
-  function checkOrderValidity(order) {
-    if (order.customer === "") return false;
-    if (order.phone === "") return false;
-    if (order.address === "") return false;
-    return true;
-  }
 
   function handleUpdate(event) {
     const { name, type, checked, value } = event.target;
@@ -64,13 +100,12 @@ function OrderNew() {
     });
   }
 
-
-
   return (
     <div className="order-new-container">
       <h2>Ready to order? Let's go!</h2>
       {/* gdje ide ToastContainer??? */}
       <ToastContainer />
+      {/* forma mora imat on submit */}
       <form className="order-form">
         <OrderNewElement
           id="customer"
@@ -116,29 +151,32 @@ function OrderNew() {
             className="checkbox-input"
             type="checkbox"
             name="priority"
-            onChange={(event) => handleUpdate(event)}
+            onChange={handleUpdate}
           />
           <label htmlFor="priority">Want to give your order priority?</label>
         </div>
 
         <Button
           type="button"
+          // type="submit"
+
           value={`ORDER NOW FOR €${
             formInfo.priority
               ? Math.round(total * 1.2).toFixed(2)
               : total.toFixed(2)
           }`}
           style="btn"
-          handler={(event) => {
-            if (!checkOrderValidity(formInfo)) {
-              toast("Please fill in all the required (*) fields");
-              return;
-            }
-            handleSubmit(event, formInfo).then((data) => {
-              const orderId = data.data.id;
+          handler={async (event) => {
+            try {
+              // jel moram pozivat checkFormValidity ili je donja linija dovoljna???
+              if (checkFormValidity(formInfo) === undefined) return;
+              const orderData = await fetchOrderPizza(event, formInfo);
+              const orderId = orderData.data.id;
               navigate(`/order/${orderId}`);
               dispatch(clearCart());
-            });
+            } catch (error) {
+              console.log(error);
+            }
           }}
         />
       </form>
