@@ -24,6 +24,7 @@ function OrderNew() {
     priority: false,
   });
   // jel moze ToastContainer ic u SharedLayouts???
+  // kako pisat commit poruke???
 
   // pogledat zod za validaciju
   function checkOrderValidity(order) {
