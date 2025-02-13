@@ -1,9 +1,11 @@
+import "./index.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import "./index.css";
-import store from "./store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import store from "./store.js";
 import Home from "#pages/home/Home.jsx";
 import Menu from "#pages/menu/Menu.jsx";
 import SharedLayout from "#layouts/SharedLayout.jsx";
@@ -31,7 +33,6 @@ const router = createBrowserRouter([
       },
       {
         path: "order",
-        // element: <Order />,
         children: [
           {
             path: "new",
@@ -47,11 +48,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-// order ruta sa dvije child rute- jedna je new a druga je id
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
+      <ToastContainer/>
       <RouterProvider router={router} />
     </Provider>
   </StrictMode>

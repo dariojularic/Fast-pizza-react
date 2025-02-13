@@ -7,7 +7,7 @@ export const baseGeolocationUrl =
 export async function getAddress({ lat, long }) {
   try {
     const response = await fetch(
-      `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=${
+      `${baseGeolocationUrl}lat=${lat}&lon=${long}&apiKey=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -22,46 +22,49 @@ export async function getAddress({ lat, long }) {
     return { street, city };
   } catch (error) {
     console.log(error);
-    toast("Ups! Something went wrong...")
+    toast("Ups! Something went wrong...");
   }
 }
 
-export const fetchOrderPizza = async (event, formData) => {
-  event.preventDefault();
+export const fetchOrderPizza = async (formData) => {
+  // try {
+  const response = await fetch(`${basePizzaUrl}order`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+  // console.log("response", response)
 
-  try {
-    const response = await fetch(
-      "https://react-fast-pizza-api.onrender.com/api/order",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+  if (!response.ok) {
+    const errorData = await response.json();
+    // console.log(errorData)
+    // toast("Make sure your cart is not empty");
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      // toast("Make sure your cart is not empty");
-      // toast(errorData.message);
-      throw new Error(errorData.message);
+
+    // ako je error sa backenda, extendam error objekt time sto mi vraca server
+    // u file errorhandler napravit CustomError klasu i extendat error objekt 
+    const error = new Error("dario")
+    error.data = {
+      message: "123"
     }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    toast(error)
-    toast("Ups! Something went wrong...")
+    throw error
+    // throw new Error("dario, errorData", errorData);
+    // throw new Error(JSON.stringify(errorData));
   }
+
+  const data = await response.json();
+  return data;
+  // } catch (error) {
+  console.log(error);
+  toast(error);
+  // }
 };
 
 export const getOrder = async (orderId) => {
   try {
-    const response = await fetch(
-      `https://react-fast-pizza-api.onrender.com/api/order/${orderId}`
-    );
+    const response = await fetch(`${basePizzaUrl}order/${orderId}`);
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -73,7 +76,7 @@ export const getOrder = async (orderId) => {
     const data = await response.json();
     return data;
   } catch (err) {
-    toast("Ups! Something went wrong...")
+    toast(err);
     console.error("Error fetching data:", err);
   }
 };

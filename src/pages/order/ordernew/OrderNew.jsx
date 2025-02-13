@@ -1,46 +1,44 @@
 import "#pages/order/ordernew/OrderNew.css";
 import OrderNewElement from "#pages/order/ordernew/components/OrderNewElement";
 import Button from "#components/Button";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { totalPrice, clearCart } from "#cartSlice";
 import { useState } from "react";
 import { fetchOrderPizza } from "#api/index.js";
 import { getAddress } from "#api";
-import { z } from "zod";
-
-// napravit funkciju parseZodErrors
-// prima error koji vrati zodValidator funkcija
-// i onda to proslijedim toastu
-
-// glavni problem za rijesiti je :
-// potencijalni error koji moze doc unutar api foldera (server mi je vratio error)
-// potencijalni error koji moze doc validacijski zod
-// potencijalni error koji moze doc nezavisno od mene
-// sve ovo sinkronizovat sa uspjesno vracenim pizama
+import { z, ZodError } from "zod";
+// kako pisat commit poruke???
 
 const formSchema = z
   .object({
-    address: z.string().min(5),
-    customer: z
-      .string()
-      .min(3, { message: "Name must contain at least 3 characters" }),
-    phone: z
-      .string()
-      .min(6, { message: "Phone number must contain at least 6 digits" }),
+    address: z.string().min(4, {
+      message: "Address is required and must contain at least 4 characters",
+    }),
+    customer: z.string().min(3, {
+      message: "Name is required and must contain at least 3 characters",
+    }),
+    phone: z.string().min(6, {
+      message: "Phone number is required and must contain at least 6 digits",
+    }),
     position: z.string().optional(),
     priority: z.boolean(),
-    // cart: z.array().min(1),
   })
   .required();
 
+const zodErrorSchema = z.object({
+  error: z.object({}),
+  success: z.boolean(),
+});
+
 function OrderNew() {
   const dispatch = useDispatch();
+
   const { cart } = useSelector((state) => state.cart);
   const { username } = useSelector((state) => state.user);
   const total = useSelector(totalPrice);
-  const navigate = useNavigate();
+
   const [formInfo, setFormInfo] = useState({
     address: "",
     cart: cart,
@@ -50,25 +48,82 @@ function OrderNew() {
     priority: false,
   });
 
-  function parseZodErrors(errorArray) {
-    errorArray.forEach((err) => {
-      toast(err.message);
-    });
-  }
+  const [modifiedError, setModifiedError] = useState({
+    customer: {
+      status: false,
+      message: ""
+    },
+    phone: {
+      status: false,
+      message: ""
+    },
+    address: {
+      status: false,
+      message: ""
+    }
+  });
 
-  // jel moze ToastContainer ic u SharedLayouts???
-  function checkFormValidity(formData) {
-    try {
-      const a = formSchema.parse(formData);
-      console.log("baegab", a);
-      return a;
-    } catch (error) {
-      parseZodErrors(error.errors);
+  const navigate = useNavigate();
+
+
+  //
+
+  function modifyError(err) {
+    console.log(err);
+    console.log(zodErrorSchema.parse(err));
+    if (err.errors) {
+      console.log("ovo je zodError");
+      err.errors.forEach((err) => {
+        console.log(err);
+        const path = err.path[0];
+        const message = err.message;
+        handleErrorUpdate(path, message);
+      });
+      return;
+    } else {
+      const parsedError = JSON.parse(err.message);
+      console.log(parsedError.status);
     }
   }
-  // kako pisat commit poruke???
 
-  // pogledat zod za validaciju
+  const handleErrorUpdate = (path, message) => {
+    setModifiedError((prev) => ({
+      ...prev,
+      path: path,
+      message: message,
+    }));
+  };
+
+  function checkFormValidity(formData) {
+    // console.log(formSchema.parse(formData));
+    formSchema.parse(formData);
+  }
+
+  async function handleSubmit(event, formData) {
+    event.preventDefault();
+    try {
+      checkFormValidity(formData);
+      // console.log("fa");
+      const orderData = await fetchOrderPizza(formData);
+      const orderId = orderData.data.id;
+      navigate(`/order/${orderId}`);
+      dispatch(clearCart());
+    } catch (error) {
+      console.log(error)
+      if (error instanceof ZodError) {
+        console.log("zod error");
+        console.log(error);
+        // const errors = parse errors from response
+        // ideja 1 errors je array objekata sa poljima name i message, za svaki element u arrayu aktiviraj mi Error.name sa porukom .message iz tog objekta
+        // ideja 2 napravit objekt u stateu koji odgovara onome sto ce vratit parse errors from response
+        // provjerit - za svako polje koje postoji u ovom errors objektt koji vrati parse errors from response i u errors statu aktiviraj Error
+        // useState je objekt objekata ili array objekata sa poljima: address, name, phoneNumber i message
+      }
+      // ako je error.name = customError
+      // else ne zavisi od mene, ups...
+      console.log(error.data)
+    }
+  }
 
   function handleUpdate(event) {
     const { name, type, checked, value } = event.target;
@@ -103,10 +158,10 @@ function OrderNew() {
   return (
     <div className="order-new-container">
       <h2>Ready to order? Let's go!</h2>
-      {/* gdje ide ToastContainer??? */}
-      <ToastContainer />
-      {/* forma mora imat on submit */}
-      <form className="order-form">
+      <form
+        className="order-form"
+        onSubmit={(event) => handleSubmit(event, formInfo)}
+      >
         <OrderNewElement
           id="customer"
           inputValue={formInfo.customer}
@@ -157,27 +212,14 @@ function OrderNew() {
         </div>
 
         <Button
-          type="button"
-          // type="submit"
-
+          // type="button"
+          type="submit"
           value={`ORDER NOW FOR €${
             formInfo.priority
               ? Math.round(total * 1.2).toFixed(2)
               : total.toFixed(2)
           }`}
           style="btn"
-          handler={async (event) => {
-            try {
-              // jel moram pozivat checkFormValidity ili je donja linija dovoljna???
-              if (checkFormValidity(formInfo) === undefined) return;
-              const orderData = await fetchOrderPizza(event, formInfo);
-              const orderId = orderData.data.id;
-              navigate(`/order/${orderId}`);
-              dispatch(clearCart());
-            } catch (error) {
-              console.log(error);
-            }
-          }}
         />
       </form>
     </div>

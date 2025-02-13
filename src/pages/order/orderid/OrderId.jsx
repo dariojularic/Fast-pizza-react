@@ -11,10 +11,8 @@ function OrderId() {
   const [orderReady, setOrderReady] = useState(false);
   const params = useParams();
 
-
   useEffect(() => {
     getOrder(params.id).then((orderData) => {
-      console.log(orderData);
       setOrder(orderData.data);
       setOrderReady(true);
     });
@@ -45,7 +43,7 @@ function OrderId() {
       <div className="order-container">
         {order.cart.map((pizza) => {
           return (
-            <div key={pizza.id}>
+            <div key={pizza.pizzaId}>
               <div className="pizza-container">
                 <p className="num-of-pizzas">
                   {pizza.quantity} x {pizza.name}

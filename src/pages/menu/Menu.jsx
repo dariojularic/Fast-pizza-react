@@ -8,14 +8,13 @@ import { basePizzaUrl } from "#api";
 
 const Menu = () => {
   const [pizzaMenu, setPizzaMenu] = useState([]);
-  // const url = "https://react-fast-pizza-api.onrender.com/api/menu";
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         //
-        const response = await fetch(basePizzaUrl + "menu"); // provjerit jel ok url + menu
+        const response = await fetch(basePizzaUrl + "menu");
         const data = await response.json();
         data.data.forEach((pizza) => {
           pizza.quantity = 0
