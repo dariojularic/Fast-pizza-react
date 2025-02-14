@@ -21,7 +21,7 @@ export async function getAddress({ lat, long }) {
     const city = data.features[0].properties.city;
     return { street, city };
   } catch (error) {
-    console.log(error);
+    console.error(error)
     toast("Ups! Something went wrong...");
   }
 }
@@ -36,9 +36,6 @@ export const fetchOrderPizza = async (formData) => {
   });
 
   if (!response.ok) {
-    // const errorData = await response.json();
-    // ako je error sa backenda, extendam error objekt time sto mi vraca server
-    // u file errorhandler napravit CustomError klasu i extendat error objekt
     const error = new Error()
     error.data = {
       message: "Make sure your cart is not empty",

@@ -17,9 +17,9 @@ const Menu = () => {
         const response = await fetch(basePizzaUrl + "menu");
         const data = await response.json();
         data.data.forEach((pizza) => {
+          console.log(pizza)
           pizza.quantity = 0
           pizza.pizzaId = pizza.id
-          // ovo jos moram doradit - preimenovat id u pizzaId
         });
         setPizzaMenu(data.data);
       } catch (error) {

@@ -6,4 +6,3 @@ function calculateTotal(arr) {
   return arr.reduce((total, item) => total + item.totalPrice, 0)
 }
 export { capitalizeName, calculateTotal };
-// parseErrors
