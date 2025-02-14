@@ -1,6 +1,5 @@
 .order-new-container {
   width: 55%;
-
 }
 
 .order-form {
@@ -38,4 +37,8 @@
   color: red;
   margin-top: 0;
   font-size: 16px;
+}
+
+.order-btn {
+  width: 280px;
 }

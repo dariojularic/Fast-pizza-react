@@ -11,6 +11,7 @@ import { clearCart } from "#cartSlice";
 function Cart() {
   const { username } = useSelector((store) => store.user);
   const { cart } = useSelector((store) => store.cart);
+  
   const dispatch = useDispatch();
 
   return (

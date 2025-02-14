@@ -21,7 +21,7 @@ export async function getAddress({ lat, long }) {
     const city = data.features[0].properties.city;
     return { street, city };
   } catch (error) {
-    console.error(error)
+    console.error(error);
     toast("Ups! Something went wrong...");
   }
 }
@@ -36,11 +36,11 @@ export const fetchOrderPizza = async (formData) => {
   });
 
   if (!response.ok) {
-    const error = new Error()
+    const error = new Error();
     error.data = {
       message: "Make sure your cart is not empty",
-    }
-    throw error
+    };
+    throw error;
   }
 
   const data = await response.json();
@@ -52,15 +52,17 @@ export const getOrder = async (orderId) => {
     const response = await fetch(`${basePizzaUrl}order/${orderId}`);
 
     if (!response.ok) {
-      const errorData = await response.json();
-      toast("Check order ID. You don't need # in front the ID.");
-      throw new Error(errorData.message);
+      const error = new Error("dario");
+      error.data = {
+        message: "Wrong order ID",
+      };
+      throw error;
     }
 
     const data = await response.json();
     return data;
-  } catch (err) {
-    toast(err);
-    console.error("Error fetching data:", err);
+  } catch (error) {
+    if (error.data) toast(error.data.message);
+    else toast("Ups! Something went wrong...");
   }
 };

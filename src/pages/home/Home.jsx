@@ -2,14 +2,18 @@ import "./Home.css";
 import Input from "#components/Input.jsx";
 import Button from "#components/Button";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addUser } from "#userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
-  const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const { username } = useSelector((state) => state.user);
+
+  const [inputValue, setInputValue] = useState("");
 
   return (
     <div className="landing-page">
@@ -29,7 +33,14 @@ const Home = () => {
       ) : (
         <div className="user-input-container">
           <h3>👋 Welcome! Please start by telling us your name: </h3>
-          <form className="add-user-form" action="">
+          <form
+            className="add-user-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              dispatch(addUser(inputValue));
+              navigate("/menu");
+            }}
+          >
             <Input
               type="text"
               placeholder="Your full name"
@@ -40,16 +51,11 @@ const Home = () => {
             />
 
             {inputValue !== "" && (
-              <Link to="/menu">
-                <Button
-                  style="btn"
-                  type="submit"
-                  value="Submit name"
-                  handler={() => {
-                    dispatch(addUser(inputValue));
-                  }}
-                />
-              </Link>
+              <Button
+                style="btn"
+                type="submit"
+                value="Submit name"
+              />
             )}
           </form>
         </div>

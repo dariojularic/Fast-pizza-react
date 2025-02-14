@@ -6,9 +6,11 @@ import { useState } from "react";
 
 const Navbar = () => {
   const { username } = useSelector((store) => store.user);
-  const [inputValue, setInputValue] = useState("");
+
   const navigate = useNavigate();
   const navigateTo = `/order/${inputValue}`;
+
+  const [inputValue, setInputValue] = useState("");
 
   function submitHandler(event) {
     event.preventDefault();

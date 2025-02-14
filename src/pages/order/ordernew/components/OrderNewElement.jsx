@@ -13,7 +13,6 @@ function OrderNewElement({ id, inputValue, labelValue, name, handler }) {
           defaultValue={inputValue}
           onChange={handler}
           autoComplete="on"
-          // required
         />
       </div>
       <hr />

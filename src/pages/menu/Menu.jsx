@@ -7,8 +7,9 @@ import { addToCart } from "#cartSlice";
 import { basePizzaUrl } from "#api";
 
 const Menu = () => {
-  const [pizzaMenu, setPizzaMenu] = useState([]);
   const dispatch = useDispatch();
+  
+  const [pizzaMenu, setPizzaMenu] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +18,6 @@ const Menu = () => {
         const response = await fetch(basePizzaUrl + "menu");
         const data = await response.json();
         data.data.forEach((pizza) => {
-          console.log(pizza)
           pizza.quantity = 0
           pizza.pizzaId = pizza.id
         });

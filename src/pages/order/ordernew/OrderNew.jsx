@@ -199,7 +199,7 @@ function OrderNew() {
               ? Math.round(total * 1.2).toFixed(2)
               : total.toFixed(2)
           }`}
-          style="btn"
+          style="btn order-btn"
         />
       </form>
     </div>
