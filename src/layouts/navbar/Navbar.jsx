@@ -8,9 +8,9 @@ const Navbar = () => {
   const { username } = useSelector((store) => store.user);
 
   const navigate = useNavigate();
-  const navigateTo = `/order/${inputValue}`;
 
   const [inputValue, setInputValue] = useState("");
+  const navigateTo = `/order/${inputValue}`;
 
   function submitHandler(event) {
     event.preventDefault();

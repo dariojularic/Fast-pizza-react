@@ -11,7 +11,7 @@ import { clearCart } from "#cartSlice";
 function Cart() {
   const { username } = useSelector((store) => store.user);
   const { cart } = useSelector((store) => store.cart);
-  
+
   const dispatch = useDispatch();
 
   return (
@@ -27,8 +27,15 @@ function Cart() {
         })}
       </div>
       <div className="cart-buttons">
-        <Link className="btn link" to="/order/new">SET ORDER</Link>
-        <Button value="CLEAR CART" type="button" style="btn gray" handler={() => dispatch(clearCart())} />
+        <Link className="btn link" to="/order/new">
+          SET ORDER
+        </Link>
+        <Button
+          value="CLEAR CART"
+          type="button"
+          style="btn gray"
+          handler={() => dispatch(clearCart())}
+        />
       </div>
     </div>
   );

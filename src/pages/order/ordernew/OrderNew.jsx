@@ -9,7 +9,6 @@ import { useState } from "react";
 import { fetchOrderPizza } from "#api/index.js";
 import { getAddress } from "#api";
 import { z, ZodError } from "zod";
-// kako pisat commit poruke???
 
 const formSchema = z
   .object({
