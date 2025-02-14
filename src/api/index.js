@@ -27,7 +27,6 @@ export async function getAddress({ lat, long }) {
 }
 
 export const fetchOrderPizza = async (formData) => {
-  // try {
   const response = await fetch(`${basePizzaUrl}order`, {
     method: "POST",
     headers: {
@@ -35,31 +34,20 @@ export const fetchOrderPizza = async (formData) => {
     },
     body: JSON.stringify(formData),
   });
-  // console.log("response", response)
 
   if (!response.ok) {
-    const errorData = await response.json();
-    // console.log(errorData)
-    // toast("Make sure your cart is not empty");
-
-
+    // const errorData = await response.json();
     // ako je error sa backenda, extendam error objekt time sto mi vraca server
     // u file errorhandler napravit CustomError klasu i extendat error objekt
-    const error = new Error("dario")
+    const error = new Error()
     error.data = {
       message: "Make sure your cart is not empty",
     }
     throw error
-    // throw new Error("dario, errorData", errorData);
-    // throw new Error(JSON.stringify(errorData));
   }
 
   const data = await response.json();
   return data;
-  // } catch (error) {
-  console.log(error);
-  toast(error);
-  // }
 };
 
 export const getOrder = async (orderId) => {
@@ -69,7 +57,6 @@ export const getOrder = async (orderId) => {
     if (!response.ok) {
       const errorData = await response.json();
       toast("Check order ID. You don't need # in front the ID.");
-      toast(errorData.message);
       throw new Error(errorData.message);
     }
 

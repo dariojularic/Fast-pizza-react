@@ -16,7 +16,7 @@ function OrderId() {
       setOrder(orderData.data);
       setOrderReady(true);
     });
-  }, []);
+  }, [params.id]);
 
   if (orderReady === false) return <Loader />;
 
@@ -31,9 +31,18 @@ function OrderId() {
       </div>
 
       <div className="delivery-container">
-        <p className="until-delivery">
-          Only {formatDistanceToNow(new Date(order.estimatedDelivery))} left 😀
-        </p>
+        {new Date(order.estimatedDelivery) > new Date() ? (
+          <p className="until-delivery">
+            Only {formatDistanceToNow(new Date(order.estimatedDelivery))} left
+            😀
+          </p>
+        ) : (
+          <p className="until-delivery">
+            Delivered {formatDistanceToNow(new Date(order.estimatedDelivery))}{" "}
+            ago 😀
+          </p>
+        )}
+
         <p className="delivery-time">
           (Estimated delivery:{" "}
           {format(new Date(order.estimatedDelivery), "MMM d, hh:mm a")})

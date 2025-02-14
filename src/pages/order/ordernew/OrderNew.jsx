@@ -58,9 +58,10 @@ function OrderNew() {
     },
   });
 
+  const navigate = useNavigate();
+
   function updateModifiedError(error) {
     error.errors.forEach((err) => {
-      // console.log(err);
       setModifiedError((prev) => ({
         ...prev,
         [err.path[0]]: {
@@ -70,8 +71,6 @@ function OrderNew() {
       }));
     });
   }
-
-  const navigate = useNavigate();
 
   function checkFormValidity(formData) {
     formSchema.parse(formData);
@@ -86,20 +85,11 @@ function OrderNew() {
       navigate(`/order/${orderId}`);
       dispatch(clearCart());
     } catch (error) {
-      // console.log(error)
       if (error instanceof ZodError) {
-        console.log("zod error");
-        console.log("error.errors", error.errors);
         updateModifiedError(error);
         return;
-        // const errors = parse errors from response
-        // ideja 1 errors je array objekata sa poljima name i message, za svaki element u arrayu aktiviraj mi Error.name sa porukom .message iz tog objekta
-        // ideja 2 napravit objekt u stateu koji odgovara onome sto ce vratit parse errors from response
-        // provjerit - za svako polje koje postoji u ovom errors objektt koji vrati parse errors from response i u errors statu aktiviraj Error
       }
       if (error.data) {
-        console.log("Empty cart");
-        console.log(error.data.message);
         toast(error.data.message);
       } else {
         toast("Ups! Something went wrong...");
@@ -203,7 +193,6 @@ function OrderNew() {
         </div>
 
         <Button
-          // type="button"
           type="submit"
           value={`ORDER NOW FOR €${
             formInfo.priority
