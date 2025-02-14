@@ -27,11 +27,6 @@ const formSchema = z
   })
   .required();
 
-const zodErrorSchema = z.object({
-  error: z.object({}),
-  success: z.boolean(),
-});
-
 function OrderNew() {
   const dispatch = useDispatch();
 
@@ -51,51 +46,34 @@ function OrderNew() {
   const [modifiedError, setModifiedError] = useState({
     customer: {
       status: false,
-      message: ""
+      message: "",
     },
     phone: {
       status: false,
-      message: ""
+      message: "",
     },
     address: {
       status: false,
-      message: ""
-    }
+      message: "",
+    },
   });
+
+  function updateModifiedError(error) {
+    error.errors.forEach((err) => {
+      // console.log(err);
+      setModifiedError((prev) => ({
+        ...prev,
+        [err.path[0]]: {
+          status: true,
+          message: err.message,
+        },
+      }));
+    });
+  }
 
   const navigate = useNavigate();
 
-
-  //
-
-  function modifyError(err) {
-    console.log(err);
-    console.log(zodErrorSchema.parse(err));
-    if (err.errors) {
-      console.log("ovo je zodError");
-      err.errors.forEach((err) => {
-        console.log(err);
-        const path = err.path[0];
-        const message = err.message;
-        handleErrorUpdate(path, message);
-      });
-      return;
-    } else {
-      const parsedError = JSON.parse(err.message);
-      console.log(parsedError.status);
-    }
-  }
-
-  const handleErrorUpdate = (path, message) => {
-    setModifiedError((prev) => ({
-      ...prev,
-      path: path,
-      message: message,
-    }));
-  };
-
   function checkFormValidity(formData) {
-    // console.log(formSchema.parse(formData));
     formSchema.parse(formData);
   }
 
@@ -103,25 +81,29 @@ function OrderNew() {
     event.preventDefault();
     try {
       checkFormValidity(formData);
-      // console.log("fa");
       const orderData = await fetchOrderPizza(formData);
       const orderId = orderData.data.id;
       navigate(`/order/${orderId}`);
       dispatch(clearCart());
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       if (error instanceof ZodError) {
         console.log("zod error");
-        console.log(error);
+        console.log("error.errors", error.errors);
+        updateModifiedError(error);
+        return;
         // const errors = parse errors from response
         // ideja 1 errors je array objekata sa poljima name i message, za svaki element u arrayu aktiviraj mi Error.name sa porukom .message iz tog objekta
         // ideja 2 napravit objekt u stateu koji odgovara onome sto ce vratit parse errors from response
         // provjerit - za svako polje koje postoji u ovom errors objektt koji vrati parse errors from response i u errors statu aktiviraj Error
-        // useState je objekt objekata ili array objekata sa poljima: address, name, phoneNumber i message
       }
-      // ako je error.name = customError
-      // else ne zavisi od mene, ups...
-      console.log(error.data)
+      if (error.data) {
+        console.log("Empty cart");
+        console.log(error.data.message);
+        toast(error.data.message);
+      } else {
+        toast("Ups! Something went wrong...");
+      }
     }
   }
 
@@ -169,6 +151,9 @@ function OrderNew() {
           name="customer"
           handler={(event) => handleUpdate(event)}
         />
+        {modifiedError.customer.status && (
+          <p className="error-message">{modifiedError.customer.message}</p>
+        )}
         <OrderNewElement
           id="phone"
           inputValue={formInfo.phone}
@@ -176,6 +161,9 @@ function OrderNew() {
           name="phone"
           handler={(event) => handleUpdate(event)}
         />
+        {modifiedError.phone.status && (
+          <p className="error-message">{modifiedError.phone.message}</p>
+        )}
         <div className="relative">
           <OrderNewElement
             id="address"
@@ -184,6 +172,9 @@ function OrderNew() {
             name="address"
             handler={(event) => handleUpdate(event)}
           />
+          {modifiedError.address.status && (
+            <p className="error-message">{modifiedError.address.message}</p>
+          )}
           <Button
             style="btn position-btn"
             type="button"

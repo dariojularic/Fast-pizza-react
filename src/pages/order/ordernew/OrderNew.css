@@ -33,3 +33,9 @@
 .relative {
   position: relative;
 }
+
+.error-message {
+  color: red;
+  margin-top: 0;
+  font-size: 16px;
+}

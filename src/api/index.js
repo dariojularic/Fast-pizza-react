@@ -44,10 +44,10 @@ export const fetchOrderPizza = async (formData) => {
 
 
     // ako je error sa backenda, extendam error objekt time sto mi vraca server
-    // u file errorhandler napravit CustomError klasu i extendat error objekt 
+    // u file errorhandler napravit CustomError klasu i extendat error objekt
     const error = new Error("dario")
     error.data = {
-      message: "123"
+      message: "Make sure your cart is not empty",
     }
     throw error
     // throw new Error("dario, errorData", errorData);
