@@ -1,24 +1,16 @@
 import "./Button.css";
 
 const Button = ({ style, type, value, handler }) => {
-  const doNothing = () => {};
   if (type === "submit") {
     return (
-      <button
-        className={style}
-        type={type}
-      >
+      <button className={style} type={type}>
         {value}
       </button>
     );
   }
 
   return (
-    <button
-      className={style}
-      type={type}
-      onClick={type === "submit" ? doNothing : handler}
-    >
+    <button className={style} type={type} onClick={handler}>
       {value}
     </button>
   );

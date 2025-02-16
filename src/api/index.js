@@ -52,7 +52,7 @@ export const getOrder = async (orderId) => {
     const response = await fetch(`${basePizzaUrl}order/${orderId}`);
 
     if (!response.ok) {
-      const error = new Error("dario");
+      const error = new Error();
       error.data = {
         message: "Wrong order ID",
       };
